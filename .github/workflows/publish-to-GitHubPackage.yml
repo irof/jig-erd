@@ -1,0 +1,18 @@
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  publish-to-GitHubPackages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: publish
+        env:
+          USERNAME: ${{ github.repository_owner }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF: ${{ github.ref }}
+        run: |
+          export VERSION=${REF##*/}
+          export REPOSITORY_URL=https://maven.pkg.github.com/${GITHUB_REPOSITORY}
+          ./gradlew publish

@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'irof'
+version = System.getenv("VERSION") ?: '0.0.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    def repositoryUrl = System.getenv("REPOSITORY_URL")
+    if (repositoryUrl) {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri(repositoryUrl)
+                credentials {
+                    username = System.getenv("USERNAME")
+                    password = System.getenv("TOKEN")
+                }
+            }
+        }
+        publications {
+            gpr(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+}
