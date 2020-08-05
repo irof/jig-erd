@@ -1,1 +1,62 @@
 # jig-erd
+
+簡易なERダイアグラムを出力します。
+全スキーマのテーブルと外部キー制約を参照します。
+現在はH2Databaseのみに対応しています。
+
+定義全体の出力には対応しません。
+詳細な出力は他のツールにお任せします。
+
+## 前提条件
+
+- Java11以降
+- Graphvizがインストールされており、パスが通っていること。
+
+## Getting Started
+
+依存関係に追加する。
+
+```groovy
+repositories {
+    maven {
+        url "https://dl.bintray.com/jignite/maven/"
+    }
+}
+
+dependencies {
+    testImplementation 'irof:jig-erd:0.0.1'
+}
+```
+
+実行する。
+
+```java
+@SpringBootTest
+public class Erd {
+
+    @Test
+    void run(@Autowired DataSource dataSource) {
+        new ERDiagram(dataSource).run();
+    }
+}
+```
+
+`javax.sql.DataSource` を使って出力します。
+上記ではSpringBootTestを使用してテストコードで実行しています。
+これはマイグレーションや`DataSource`をSpringBootに任せるためです。
+
+## 未定な予定
+
+- [x] H2database
+- [ ] FKのカラムくらいはだす
+- [ ] 出力形式や出力先などの設定
+- [ ] PostgreSQL
+- [ ] COMMENTを使う
+- [ ] SpringBootStarter
+- [ ] スタンドアロン
+- [ ] jCenter
+- [ ] 他のDB
+
+## LICENSE
+
+[Apache License 2.0](LICENSE)
