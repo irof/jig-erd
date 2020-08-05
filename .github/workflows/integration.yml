@@ -2,7 +2,7 @@ name: integration
 on: [push]
 
 jobs:
-  publish-to-GitHubPackages:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
