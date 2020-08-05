@@ -3,6 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
+sourceCompatibility = 11
+
 group = 'irof'
 version = System.getenv("VERSION") ?: '0.0.0-SNAPSHOT'
 

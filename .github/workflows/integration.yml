@@ -1,0 +1,9 @@
+name: integration
+on: [push]
+
+jobs:
+  publish-to-GitHubPackages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./gradlew build
