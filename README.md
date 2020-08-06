@@ -12,6 +12,15 @@
 - Java11以降
 - Graphvizがインストールされており、パスが通っていること。
 
+### versions
+
+|対象 |推奨 |動作確認済 |
+|----|----|----|
+|Java|11以降| AdoptOpenJDK 11.0.7 |
+|Graphviz|最新| 2.44.1 |
+|H2 Database Engine|最新| 1.4.200  |
+|OS|- | macOS Catalina 10.15.5  |
+
 ## Getting Started
 
 依存関係に追加する。
@@ -48,6 +57,7 @@ public class Erd {
 ## 未定な予定
 
 - [x] H2database
+- [ ] Windows
 - [ ] FKのカラムくらいはだす
 - [ ] 出力形式や出力先などの設定
 - [ ] PostgreSQL
