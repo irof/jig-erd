@@ -7,10 +7,20 @@
 定義全体の出力には対応しません。
 詳細な出力は他のツールにお任せします。
 
+## 出力例
+
+以下は [system-sekkei/library](https://github.com/system-sekkei/library) で出力例したものです。
+
+### スキーマ、テーブルのみ
+![summary](./document/jig-er-summary.png)
+
+### スキーマ、テーブル、外部キーカラム
+![detail](./document/jig-er-detail.png)
+
 ## 前提条件
 
-- Java11以降
-- Graphvizがインストールされており、パスが通っていること。
+- Java11以降がインストールされていること
+- Graphvizがインストールされていること
 
 ### versions
 
