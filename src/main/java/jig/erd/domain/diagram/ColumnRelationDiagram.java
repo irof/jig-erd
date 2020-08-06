@@ -1,7 +1,7 @@
 package jig.erd.domain.diagram;
 
 import jig.erd.domain.composite.CompositeSchema;
-import jig.erd.domain.primitive.ColumnRelation;
+import jig.erd.domain.primitive.ColumnRelations;
 
 import java.util.List;
 import java.util.StringJoiner;
@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public class ColumnRelationDiagram {
 
     List<CompositeSchema> schemas;
-    List<ColumnRelation> columnRelations;
+    ColumnRelations columnRelations;
 
-    public ColumnRelationDiagram(List<CompositeSchema> schemas, List<ColumnRelation> columnRelations) {
+    public ColumnRelationDiagram(List<CompositeSchema> schemas, ColumnRelations columnRelations) {
         this.schemas = schemas;
         this.columnRelations = columnRelations;
     }
@@ -22,9 +22,7 @@ public class ColumnRelationDiagram {
                 .map(compositeSchema -> compositeSchema.graphText())
                 .collect(Collectors.joining("\n"));
 
-        String edgesText = columnRelations.stream()
-                .map(columnRelation -> columnRelation.edgeText())
-                .collect(Collectors.joining(";\n"));
+        String edgesText = columnRelations.edgesText();
 
         return new StringJoiner("\n", "digraph ERD {", "}")
                 .add("rankdir=LR;")

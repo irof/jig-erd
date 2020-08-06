@@ -72,6 +72,10 @@ public class Repository {
                 .map(schema -> new CompositeSchema(schema, allEntities.only(schema)))
                 .collect(toList());
 
-        return new ColumnRelationDiagram(compositeSchemas, columnRelations);
+        return new ColumnRelationDiagram(compositeSchemas, columnRelations());
+    }
+
+    private ColumnRelations columnRelations() {
+        return new ColumnRelations(columnRelations);
     }
 }
