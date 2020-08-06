@@ -18,14 +18,19 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-public class ERDiagram {
-    Logger logger = Logger.getLogger(ERDiagram.class.getName());
+public class JigErd {
+    Logger logger = Logger.getLogger(JigErd.class.getName());
 
     Repository repository = new Repository();
     DataSource dataSource;
 
-    public ERDiagram(DataSource dataSource) {
+    public JigErd(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public static void run(DataSource dataSource) {
+        JigErd jigErd = new JigErd(dataSource);
+        jigErd.run();
     }
 
     public void run() {
