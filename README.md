@@ -54,6 +54,18 @@ public class Erd {
 上記ではSpringBootTestを使用してテストコードで実行しています。
 これはマイグレーションや`DataSource`をSpringBootに任せるためです。
 
+## リリース
+
+### GitHub Packages
+
+Tagを作るとGitHub Actionsがやります。
+
+### bintray
+
+```
+VERSION=0.0.2 ./gradlew bintrayUpload
+```
+
 ## 未定な予定
 
 - [x] H2database
