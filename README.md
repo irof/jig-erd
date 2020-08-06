@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'irof:jig-erd:0.0.1'
+    testImplementation 'irof:jig-erd:0.0.2'
 }
 ```
 
@@ -45,7 +45,7 @@ public class Erd {
 
     @Test
     void run(@Autowired DataSource dataSource) {
-        new ERDiagram(dataSource).run();
+        JigErd.run(dataSource);
     }
 }
 ```
