@@ -1,9 +1,9 @@
 package jig.erd.application.repository;
 
-import jig.erd.domain.composite.CompositeEntities;
-import jig.erd.domain.composite.CompositeEntity;
-import jig.erd.domain.composite.CompositeSchema;
-import jig.erd.domain.diagram.ColumnRelationDiagram;
+import jig.erd.domain.diagram.detail.DetailEntities;
+import jig.erd.domain.diagram.detail.DetailEntity;
+import jig.erd.domain.diagram.detail.DetailSchema;
+import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
 import jig.erd.domain.primitive.*;
 
 import java.util.ArrayList;
@@ -64,15 +64,15 @@ public class Repository {
     public ColumnRelationDiagram columnRelationDiagram() {
         Columns allColumns = new Columns(this.columns);
 
-        CompositeEntities allEntities = entities.stream()
-                .map(entity -> new CompositeEntity(entity, allColumns.only(entity)))
-                .collect(collectingAndThen(toList(), CompositeEntities::new));
+        DetailEntities allEntities = entities.stream()
+                .map(entity -> new DetailEntity(entity, allColumns.only(entity)))
+                .collect(collectingAndThen(toList(), DetailEntities::new));
 
-        List<CompositeSchema> compositeSchemas = schemas.stream()
-                .map(schema -> new CompositeSchema(schema, allEntities.only(schema)))
+        List<DetailSchema> detailSchemas = schemas.stream()
+                .map(schema -> new DetailSchema(schema, allEntities.only(schema)))
                 .collect(toList());
 
-        return new ColumnRelationDiagram(compositeSchemas, columnRelations());
+        return new ColumnRelationDiagram(detailSchemas, columnRelations());
     }
 
     private ColumnRelations columnRelations() {

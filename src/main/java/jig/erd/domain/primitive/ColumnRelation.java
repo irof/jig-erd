@@ -12,4 +12,8 @@ public class ColumnRelation {
     public String edgeText() {
         return String.format("%s -> %s", from.edgeNodeText(), to.edgeNodeText());
     }
+
+    EntityRelation toEntityRelation() {
+        return new EntityRelation(from.entity(), to.entity());
+    }
 }

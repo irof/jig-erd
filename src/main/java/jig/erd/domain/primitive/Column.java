@@ -39,4 +39,8 @@ public class Column {
     public boolean matches(ColumnIdentifier columnIdentifier) {
         return this.entity.matches(columnIdentifier.toEntityIdentifier()) && this.name.equals(columnIdentifier.columnName);
     }
+
+    public Entity entity() {
+        return entity;
+    }
 }

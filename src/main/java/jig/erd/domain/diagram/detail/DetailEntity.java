@@ -1,14 +1,14 @@
-package jig.erd.domain.composite;
+package jig.erd.domain.diagram.detail;
 
 import jig.erd.domain.primitive.Columns;
 import jig.erd.domain.primitive.Entity;
 import jig.erd.domain.primitive.Schema;
 
-public class CompositeEntity {
+public class DetailEntity {
     Entity entity;
     Columns columns;
 
-    public CompositeEntity(Entity entity, Columns columns) {
+    public DetailEntity(Entity entity, Columns columns) {
         this.entity = entity;
         this.columns = columns;
     }

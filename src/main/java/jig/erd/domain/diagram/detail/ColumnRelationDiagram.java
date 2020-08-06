@@ -1,6 +1,5 @@
-package jig.erd.domain.diagram;
+package jig.erd.domain.diagram.detail;
 
-import jig.erd.domain.composite.CompositeSchema;
 import jig.erd.domain.primitive.ColumnRelations;
 
 import java.util.List;
@@ -9,17 +8,17 @@ import java.util.stream.Collectors;
 
 public class ColumnRelationDiagram {
 
-    List<CompositeSchema> schemas;
+    List<DetailSchema> schemas;
     ColumnRelations columnRelations;
 
-    public ColumnRelationDiagram(List<CompositeSchema> schemas, ColumnRelations columnRelations) {
+    public ColumnRelationDiagram(List<DetailSchema> schemas, ColumnRelations columnRelations) {
         this.schemas = schemas;
         this.columnRelations = columnRelations;
     }
 
     public String dotText() {
         String schemasText = schemas.stream()
-                .map(compositeSchema -> compositeSchema.graphText())
+                .map(detailSchema -> detailSchema.graphText())
                 .collect(Collectors.joining("\n"));
 
         String edgesText = columnRelations.edgesText();

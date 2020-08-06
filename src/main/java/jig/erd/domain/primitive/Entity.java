@@ -26,6 +26,10 @@ public class Entity {
         return String.format("\"%s.%s\"", schema, name);
     }
 
+    public String nodeText() {
+        return String.format("%s[label=\"%s\"]", nodeIdText(), label());
+    }
+
     public boolean matches(EntityIdentifier entityIdentifier) {
         return schema.name.equals(entityIdentifier.schemaName) && name.equals(entityIdentifier.entityName);
     }

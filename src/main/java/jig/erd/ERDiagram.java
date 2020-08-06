@@ -1,7 +1,7 @@
 package jig.erd;
 
 import jig.erd.application.repository.Repository;
-import jig.erd.domain.diagram.ColumnRelationDiagram;
+import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
 import jig.erd.domain.primitive.ColumnIdentifier;
 import jig.erd.domain.primitive.Schema;
 

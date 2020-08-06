@@ -1,14 +1,14 @@
-package jig.erd.domain.composite;
+package jig.erd.domain.diagram.detail;
 
 import jig.erd.domain.primitive.Schema;
 
 import java.util.StringJoiner;
 
-public class CompositeSchema {
+public class DetailSchema {
     Schema schema;
-    CompositeEntities entities;
+    DetailEntities entities;
 
-    public CompositeSchema(Schema schema, CompositeEntities entities) {
+    public DetailSchema(Schema schema, DetailEntities entities) {
         this.schema = schema;
         this.entities = entities;
     }
