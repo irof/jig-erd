@@ -58,10 +58,12 @@ public class Erd {
 
 - [x] H2database
 - [ ] Windows
-- [ ] FKのカラムくらいはだす
+- [x] FKのカラムくらいはだす
 - [ ] 出力形式や出力先などの設定
 - [ ] PostgreSQL
-- [ ] COMMENTを使う
+- [x] TABLEのCOMMENTを使う
+- [ ] PK/UKのカラムをだす？
+- [ ] COLUMNのCOMMENTを使う？
 - [ ] SpringBootStarter
 - [ ] スタンドアロン
 - [ ] jCenter
