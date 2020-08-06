@@ -2,14 +2,16 @@ package jig.erd.domain.primitive;
 
 public class Schema {
     String name;
-    String alias;
 
-    public String label() {
-        if (alias == null) return name;
-        return alias;
+    public Schema(String name) {
+        this.name = name;
     }
 
     public String name() {
         return name;
+    }
+
+    public boolean matches(Schema schema) {
+        return this.name.equals(schema.name);
     }
 }

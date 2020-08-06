@@ -12,6 +12,11 @@ public class ColumnRelationDiagram {
     List<CompositeSchema> schemas;
     List<ColumnRelation> columnRelations;
 
+    public ColumnRelationDiagram(List<CompositeSchema> schemas, List<ColumnRelation> columnRelations) {
+        this.schemas = schemas;
+        this.columnRelations = columnRelations;
+    }
+
     public String dotText() {
         String schemasText = schemas.stream()
                 .map(compositeSchema -> compositeSchema.graphText())

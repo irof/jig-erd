@@ -13,7 +13,7 @@ public class Columns {
         this.list = list;
     }
 
-    public Columns entityColumns(Entity target) {
+    public Columns only(Entity target) {
         return list.stream()
                 .filter(column -> column.matches(target))
                 .collect(collectingAndThen(toList(), list -> new Columns(list)));
