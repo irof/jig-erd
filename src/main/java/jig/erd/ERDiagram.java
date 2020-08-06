@@ -29,10 +29,12 @@ public class ERDiagram {
     }
 
     public void run() {
-        try {
-            tables();
-            references();
+        loadSchemaData();
+        exportDiagram();
+    }
 
+    private void exportDiagram() {
+        try {
             ColumnRelationDiagram columnRelationDiagram = repository.columnRelationDiagram();
             String graphText = columnRelationDiagram.dotText();
 
@@ -56,7 +58,12 @@ public class ERDiagram {
         }
     }
 
-    private void tables() {
+    private void loadSchemaData() {
+        loadTables();
+        loadReferences();
+    }
+
+    private void loadTables() {
         try (Connection conn = dataSource.getConnection()) {
             try (Statement t = conn.createStatement();
                  ResultSet rs = t.executeQuery("SELECT " +
@@ -74,7 +81,7 @@ public class ERDiagram {
         }
     }
 
-    private void references() {
+    private void loadReferences() {
         try (Connection conn = dataSource.getConnection()) {
             try (Statement t = conn.createStatement();
                  ResultSet rs = t.executeQuery("SELECT"
