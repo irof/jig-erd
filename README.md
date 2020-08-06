@@ -7,9 +7,12 @@
 定義全体の出力には対応しません。
 詳細な出力は他のツールにお任せします。
 
-## 出力例
+## サンプル
 
-以下は [system-sekkei/library](https://github.com/system-sekkei/library) で出力例したものです。
+以下は [system-sekkei/library](https://github.com/system-sekkei/library) で出力したサンプルです。2種類のダイアグラムが出力されます。
+
+- `jig-er-summary.svg`: スキーマ、テーブルのみ
+- `jig-er-detail.svg`: スキーマ、テーブル、外部キーカラム
 
 ### スキーマ、テーブルのみ
 ![summary](./document/jig-er-summary.png)
