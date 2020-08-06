@@ -1,8 +1,5 @@
 package jig.erd;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,9 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ERDiagram {
-    static Logger logger = LoggerFactory.getLogger(ERDiagram.class);
+    Logger logger = Logger.getLogger(ERDiagram.class.getName());
 
     DataSource dataSource;
 
@@ -38,18 +36,18 @@ public class ERDiagram {
             Path dir = Paths.get("");
             Path gvPath = dir.resolve("jig-er.gv");
             Files.writeString(gvPath, graph.toString(), StandardCharsets.UTF_8);
-            logger.info("DOT file: {}", gvPath);
+            logger.info("exported DOT file: " + gvPath.toAbsolutePath());
 
             Path imagePath = dir.resolve("jig-er.svg");
 
             String[] dotCommand = {"dot", "-Tsvg", "-o" + imagePath.toAbsolutePath(), gvPath.toAbsolutePath().toString()};
-            logger.info("command: {}", Arrays.toString(dotCommand));
+            logger.info("command: " + Arrays.toString(dotCommand));
 
             int code = new ProcessBuilder()
                     .command(dotCommand)
                     .start()
                     .waitFor();
-            logger.info("exit code: {}", code);
+            logger.info("exit code: " + code);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
