@@ -1,10 +1,8 @@
 package jig.erd.domain.primitive;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 public class Columns {
     List<Column> list;
@@ -22,6 +20,12 @@ public class Columns {
     public String recordNodeLabelText() {
         return list.stream()
                 .map(column -> column.recordNodeLabelText())
-                .collect(Collectors.joining("|", "|", ""));
+                .collect(joining("|", "|", ""));
+    }
+
+    public String htmlColumnsText() {
+        return list.stream()
+                .map(column -> column.htmlNodeLabelText())
+                .collect(joining( "\n"));
     }
 }

@@ -30,6 +30,10 @@ public class Column {
         return String.format("<%s> %s", refId, label());
     }
 
+    public String htmlNodeLabelText() {
+        return String.format("<TR><TD PORT=\"%s\" ALIGN=\"LEFT\">%s</TD></TR>", refId, label());
+    }
+
     String edgeNodeText() {
         // node:port
         // portは""で囲ってはいけない

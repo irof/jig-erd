@@ -4,6 +4,8 @@ import jig.erd.domain.primitive.Columns;
 import jig.erd.domain.primitive.Entity;
 import jig.erd.domain.primitive.Schema;
 
+import java.util.StringJoiner;
+
 public class DetailEntity {
     Entity entity;
     Columns columns;
@@ -16,6 +18,16 @@ public class DetailEntity {
     public String recordNodeText() {
         String label = entity.label() + columns.recordNodeLabelText();
         return String.format("%s[label=\"%s\"]", entity.nodeIdText(), label);
+    }
+
+    public String htmlNodeText() {
+        String label = new StringJoiner("\n")
+                .add("<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" BGCOLOR=\"lightgoldenrod\">")
+                .add("<TR><TD ALIGN=\"CENTER\" CELLPADDING=\"5\"><B>" + entity.label() + "</B></TD></TR>")
+                .add(columns.htmlColumnsText())
+                .add("</TABLE>")
+                .toString();
+        return String.format("%s[label=<%s>]", entity.nodeIdText(), label);
     }
 
     public boolean matches(Schema schema) {

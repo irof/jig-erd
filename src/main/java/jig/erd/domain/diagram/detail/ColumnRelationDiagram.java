@@ -26,7 +26,8 @@ public class ColumnRelationDiagram {
         return new StringJoiner("\n", "digraph ERD {", "}")
                 .add("rankdir=LR;")
                 .add("graph[style=filled,fillcolor=lightyellow];")
-                .add("node[shape=record,style=filled,fillcolor=lightgoldenrod];")
+                //.add("node[shape=record,style=filled,fillcolor=lightgoldenrod];")
+                .add("node[shape=plaintext];")
                 .add("edge[arrowhead=open, style=dashed];")
                 .add(schemasText)
                 .add(edgesText).toString();

@@ -23,7 +23,7 @@ public class DetailEntities {
 
     public String nodesText() {
         return list.stream()
-                .map(DetailEntity::recordNodeText)
+                .map(DetailEntity::htmlNodeText)
                 .collect(Collectors.joining(";\n"));
     }
 }
