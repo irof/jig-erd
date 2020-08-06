@@ -1,9 +1,11 @@
 package jig.erd.application.repository;
 
+import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
 import jig.erd.domain.diagram.detail.DetailEntities;
 import jig.erd.domain.diagram.detail.DetailEntity;
 import jig.erd.domain.diagram.detail.DetailSchema;
-import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
+import jig.erd.domain.diagram.summary.EntityRelationDiagram;
+import jig.erd.domain.diagram.summary.SummarySchema;
 import jig.erd.domain.primitive.*;
 
 import java.util.ArrayList;
@@ -77,5 +79,21 @@ public class Repository {
 
     private ColumnRelations columnRelations() {
         return new ColumnRelations(columnRelations);
+    }
+
+    public EntityRelationDiagram entityRelationDiagram() {
+
+        List<SummarySchema> summarySchemas = schemas.stream()
+                .map(schema -> new SummarySchema(schema, entities(schema)))
+                .collect(toList());
+
+        EntityRelations entityRelations = columnRelations().toEntityRelations();
+
+        return new EntityRelationDiagram(summarySchemas, entityRelations);
+    }
+
+    Entities entities(Schema schema) {
+        Entities allEntities = new Entities(entities);
+        return allEntities.only(schema);
     }
 }

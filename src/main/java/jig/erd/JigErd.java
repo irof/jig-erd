@@ -1,7 +1,6 @@
 package jig.erd;
 
 import jig.erd.application.repository.Repository;
-import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
 import jig.erd.infrastructure.DataBaseDefinitionLoader;
 
 import javax.sql.DataSource;
@@ -16,7 +15,6 @@ import java.util.logging.Logger;
 public class JigErd {
     Logger logger = Logger.getLogger(JigErd.class.getName());
 
-    Repository repository = new Repository();
     DataSource dataSource;
 
     public JigErd(DataSource dataSource) {
@@ -29,21 +27,21 @@ public class JigErd {
     }
 
     public void run() {
+        Repository repository = new Repository();
         new DataBaseDefinitionLoader(dataSource, repository).load();
-        exportDiagram();
+
+        exportDiagram(repository.columnRelationDiagram().dotText(), "jig-er-detail");
+        exportDiagram(repository.entityRelationDiagram().dotText(), "jig-er-summary");
     }
 
-    private void exportDiagram() {
+    private void exportDiagram(String graphText, String diagramFileName) {
         try {
-            ColumnRelationDiagram columnRelationDiagram = repository.columnRelationDiagram();
-            String graphText = columnRelationDiagram.dotText();
-
             Path dir = Paths.get("");
-            Path gvPath = dir.resolve("jig-er.gv");
+            Path gvPath = dir.resolve(diagramFileName + ".gv");
             Files.writeString(gvPath, graphText, StandardCharsets.UTF_8);
-            logger.info("exported DOT file: " + gvPath.toAbsolutePath());
+            logger.info("DOT file: " + gvPath.toAbsolutePath());
 
-            Path imagePath = dir.resolve("jig-er.svg");
+            Path imagePath = dir.resolve(diagramFileName + ".svg");
 
             String[] dotCommand = {"dot", "-Tsvg", "-o" + imagePath.toAbsolutePath(), gvPath.toAbsolutePath().toString()};
             logger.info("command: " + Arrays.toString(dotCommand));
@@ -52,7 +50,13 @@ public class JigErd {
                     .command(dotCommand)
                     .start()
                     .waitFor();
-            logger.info("exit code: " + code);
+            if (code == 0) {
+                logger.info("image file: " + imagePath.toAbsolutePath());
+                logger.info("delete DOT file.");
+                Files.deleteIfExists(gvPath);
+            } else {
+                logger.warning("dot command failed: exit code: " + code);
+            }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
