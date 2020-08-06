@@ -2,6 +2,7 @@ package jig.erd;
 
 import jig.erd.application.repository.Repository;
 import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
+import jig.erd.domain.environment.RDBMS;
 import jig.erd.domain.primitive.ColumnIdentifier;
 import jig.erd.domain.primitive.Schema;
 
@@ -65,6 +66,9 @@ public class JigErd {
 
     private void loadSchemaData() {
         try (Connection conn = dataSource.getConnection()) {
+            String url = conn.getMetaData().getURL();
+            RDBMS.from(url);
+
             loadTables(conn);
             loadReferences(conn);
         } catch (SQLException e) {
