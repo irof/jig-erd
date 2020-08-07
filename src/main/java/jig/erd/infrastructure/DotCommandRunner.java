@@ -1,5 +1,6 @@
 package jig.erd.infrastructure;
 
+import jig.erd.domain.diagram.DocumentFormat;
 import jig.erd.infrastructure.process.DotProcessExecutor;
 
 import java.io.IOException;
@@ -12,8 +13,13 @@ public class DotCommandRunner {
 
     DotProcessExecutor dotProcessExecutor = new DotProcessExecutor();
 
-    public DotCommandResult run(Path inputPath, Path outputPath) throws IOException {
-        String[] options = {"-Tsvg", "-o" + outputPath, inputPath.toString()};
+    public DotCommandResult run(DocumentFormat documentFormat, Path inputPath, Path outputPath) throws IOException {
+        if (documentFormat == DocumentFormat.DOT) {
+            Files.move(inputPath, outputPath);
+            return DotCommandResult.success();
+        }
+
+        String[] options = {documentFormat.dotOption(), "-o" + outputPath, inputPath.toString()};
         DotCommandResult result = dotProcessExecutor.execute(options);
 
         if (result.succeed()) {
