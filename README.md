@@ -1,5 +1,8 @@
 # JIG-ERD
 
+![GitHub Actions](https://github.com/irof/jig-erd/workflows/integration/badge.svg)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/805m3sh5reap9pbx/branch/master?svg=true)](https://ci.appveyor.com/project/irof/jig-erd/branch/master)
+
 ざっくりなERダイアグラムを出力します。
 現在はH2Databaseのみに対応しています。
 
