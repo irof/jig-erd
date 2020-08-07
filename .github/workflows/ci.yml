@@ -15,4 +15,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: test-report
-          path: app/build/reports/tests/test
+          path: build/reports/tests/test
