@@ -31,12 +31,19 @@
 
 ### versions
 
-|対象 |推奨 |動作確認済 |
-|----|----|----|
-|Java|11以降| AdoptOpenJDK 11.0.7 |
+|対象 |推奨 |
+|----|----|
+|Java|11以降|
 |Graphviz|最新| 2.44.1 |
 |H2 Database Engine|最新| 1.4.200  |
-|OS|- | macOS Catalina 10.15.5  |
+
+#### 動作確認環境
+
+|OS |Java |Graphviz |
+|----|----|----|
+|`macOS Catalina 10.15.5`| `AdoptOpenJDK 11.0.7`| `2.44.1` |
+|`Windows 10`| `jdk-14.0.2_windows-x64_bin.exe`| `2.44.1` |
+
 
 ## Getting Started
 
@@ -72,6 +79,26 @@ public class Erd {
 これはマイグレーションや`DataSource`をSpringBootに任せるためです。
 
 他の出力例は [wiki](https://github.com/irof/jig-erd/wiki) を参照してください。
+
+## 設定
+
+`jig.properties` ファイルをクラスパスか実行時のカレントディレクトリに配置してください。
+
+```properties
+jig.erd.output.directory=./build
+jig.erd.output.prefix=library-er
+jig.erd.output.format=png
+jig.erd.output.rankdir=LR
+```
+
+|キー|意味|許容する値|設定しない場合のデフォルト|
+|----|----|----|----|
+|`jig.erd.output.directory` |出力先ディレクトリ|任意のディレクトリ |カレントディレクトリ |
+|`jig.erd.output.prefix` |出力ファイル名のプレフィックス |英数、記号（`-_.`） |`jig-erd` |
+|`jig.erd.output.format` |出力ファイルの形式 |`SVG`, `PNG`, `DOT`(テキスト) |`SVG` |
+|`jig.erd.output.rankdir` |ダイアグラムの方向 ([参考](https://graphviz.org/doc/info/attrs.html#d:rankdir)) |`LR`, `RL`, `TB`, `BT` |`LR` |
+
+ファイル名は `{jig.erd.output.prefix}-detail.{拡張子}` などになります。
 
 ## リリース
 
