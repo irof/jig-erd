@@ -13,8 +13,10 @@
 
 以下は [system-sekkei/library](https://github.com/system-sekkei/library) で出力したサンプルです。2種類のダイアグラムが出力されます。
 
-- `jig-er-summary.svg`: スキーマ、テーブルのみ
-- `jig-er-detail.svg`: スキーマ、テーブル、外部キーカラム
+- `jig-erd-summary.svg`: スキーマ、テーブルのみ
+- `jig-erd-detail.svg`: スキーマ、テーブル、外部キーカラム
+
+ファイル名、形式は設定で変更できます。
 
 ### スキーマ、テーブルのみ
 ![summary](./document/jig-er-summary.png)
@@ -80,15 +82,15 @@ Tagを作るとGitHub Actionsがやります。
 ### bintray
 
 ```
-VERSION=0.0.2 ./gradlew bintrayUpload
+VERSION=0.0.3 ./gradlew bintrayUpload
 ```
 
 ## 未定な予定
 
 - [x] H2database
-- [ ] Windows
+- [x] Windows
 - [x] FKのカラムくらいはだす
-- [ ] 出力形式や出力先などの設定
+- [x] 出力形式や出力先などの設定
 - [ ] PostgreSQL
 - [x] TABLEのCOMMENTを使う
 - [ ] PK/UKのカラムをだす？
