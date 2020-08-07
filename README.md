@@ -43,6 +43,8 @@
 |----|----|----|
 |`macOS Catalina 10.15.5`| `AdoptOpenJDK 11.0.7`| `2.44.1` |
 |`Windows 10`| `jdk-14.0.2_windows-x64_bin.exe`| `2.44.1` |
+|GitHub Actions ubuntu-latest|`11` | `2.40.1` |
+|AppVeyor visual studio 2015|`11` |`2.38.0` |
 
 
 ## Getting Started
