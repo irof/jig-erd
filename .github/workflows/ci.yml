@@ -5,6 +5,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: install graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
