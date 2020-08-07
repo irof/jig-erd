@@ -25,12 +25,11 @@ public class DotCommandRunner {
         return result;
     }
 
-    public static void main(String[] args) {
-        DotCommandResult result = new DotCommandRunner().runVersion();
-        System.out.println(result.message);
-    }
-
     public DotCommandResult runVersion() {
-        return dotProcessExecutor.execute("-V");
+        DotCommandResult result = dotProcessExecutor.execute("-V");
+        if (result.failed()) {
+            return result.withMessage("Graphvizのバージョン取得に失敗しました。インストール状況を確認してください。");
+        }
+        return result;
     }
 }

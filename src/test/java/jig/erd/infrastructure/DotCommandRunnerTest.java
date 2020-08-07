@@ -12,6 +12,6 @@ class DotCommandRunnerTest {
 
         DotCommandResult result = sut.runVersion();
 
-        assertTrue(result.message().startsWith("dot - graphviz version 2."), result.toString());
+        assertTrue(result.succeed(), result.toString());
     }
 }

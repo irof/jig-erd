@@ -23,6 +23,10 @@ public class DotCommandResult {
         return this.status == Status.SUCCESS;
     }
 
+    public boolean failed() {
+        return !succeed();
+    }
+
     public DotCommandResult withMessage(String message) {
         return new DotCommandResult(this.status, message);
     }
