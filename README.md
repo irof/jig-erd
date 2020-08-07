@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'irof:jig-erd:0.0.2'
+    testImplementation 'irof:jig-erd:+'
 }
 ```
 
