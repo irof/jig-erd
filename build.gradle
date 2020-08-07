@@ -23,6 +23,10 @@ test {
     useJUnitPlatform()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 publishing {
     def repositoryUrl = System.getenv("REPOSITORY_URL")
     if (repositoryUrl) {
