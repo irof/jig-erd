@@ -15,6 +15,6 @@ public class EntityRelations {
         return list.stream()
                 .map(EntityRelation::edgeText)
                 .sorted().distinct()
-                .collect(joining(";\n"));
+                .collect(joining(";\n", "", ";\n"));
     }
 }

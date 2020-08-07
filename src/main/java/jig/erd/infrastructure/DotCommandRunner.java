@@ -6,6 +6,7 @@ import jig.erd.infrastructure.process.DotProcessExecutor;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.logging.Logger;
 
 public class DotCommandRunner {
@@ -15,7 +16,7 @@ public class DotCommandRunner {
 
     public DotCommandResult run(DocumentFormat documentFormat, Path inputPath, Path outputPath) throws IOException {
         if (documentFormat == DocumentFormat.DOT) {
-            Files.move(inputPath, outputPath);
+            Files.move(inputPath, outputPath, StandardCopyOption.REPLACE_EXISTING);
             return DotCommandResult.success();
         }
 

@@ -26,6 +26,6 @@ public class Columns {
     public String htmlColumnsText() {
         return list.stream()
                 .map(column -> column.htmlNodeLabelText())
-                .collect(joining( "\n"));
+                .collect(joining());
     }
 }

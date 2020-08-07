@@ -1,10 +1,8 @@
 package jig.erd.domain.primitive;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 public class Entities {
     List<Entity> list;
@@ -16,7 +14,7 @@ public class Entities {
     public String nodesText() {
         return list.stream()
                 .map(Entity::nodeText)
-                .collect(Collectors.joining(";\n"));
+                .collect(joining(";\n", "", ";\n"));
     }
 
     public Entities only(Schema schema) {

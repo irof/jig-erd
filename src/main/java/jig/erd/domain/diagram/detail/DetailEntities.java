@@ -24,6 +24,6 @@ public class DetailEntities {
     public String nodesText() {
         return list.stream()
                 .map(DetailEntity::htmlNodeText)
-                .collect(Collectors.joining(";\n"));
+                .collect(Collectors.joining(";\n", "", ";\n"));
     }
 }

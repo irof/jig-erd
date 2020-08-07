@@ -23,7 +23,7 @@ public class EntityRelationDiagram {
 
         String edgesText = entityRelations.edgesText();
 
-        return new StringJoiner("\n", "digraph ERD {", "}")
+        return new StringJoiner("\n", "digraph ERD {\n", "}")
                 .add("rankdir=LR;")
                 .add("graph[style=filled,fillcolor=lightyellow];")
                 .add("node[shape=box,style=filled,fillcolor=lightgoldenrod];")

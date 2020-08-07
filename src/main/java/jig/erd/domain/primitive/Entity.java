@@ -23,7 +23,7 @@ public class Entity {
     }
 
     public String nodeIdText() {
-        return String.format("\"%s.%s\"", schema, name);
+        return String.format("\"%s.%s\"", schema.name(), name);
     }
 
     public String nodeText() {

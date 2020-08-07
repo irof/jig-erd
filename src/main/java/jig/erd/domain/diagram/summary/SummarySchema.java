@@ -15,7 +15,7 @@ public class SummarySchema {
     }
 
     public String graphText() {
-        return new StringJoiner("", "subgraph cluster_" + schema.name() + " {\n", "}\n")
+        return new StringJoiner("", "subgraph \"cluster_" + schema.name() + "\" {\n", "}\n")
                 .add(String.format("label=\"%s\";\n", schema.name()))
                 .add(entities.nodesText())
                 .toString();
