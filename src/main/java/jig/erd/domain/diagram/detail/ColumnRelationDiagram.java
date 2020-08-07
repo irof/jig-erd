@@ -1,5 +1,6 @@
 package jig.erd.domain.diagram.detail;
 
+import jig.erd.JigProperties;
 import jig.erd.domain.primitive.ColumnRelations;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ColumnRelationDiagram {
         this.columnRelations = columnRelations;
     }
 
-    public String dotText() {
+    public String dotText(JigProperties jigProperties) {
         String schemasText = schemas.stream()
                 .map(detailSchema -> detailSchema.graphText())
                 .collect(joining("\n"));
@@ -25,7 +26,7 @@ public class ColumnRelationDiagram {
         String edgesText = columnRelations.edgesText();
 
         return new StringJoiner("\n", "digraph ERD {\n", "}")
-                .add("rankdir=LR;")
+                .add("rankdir=" + jigProperties.rankdir() + ";")
                 .add("graph[style=filled,fillcolor=lightyellow];")
                 //.add("node[shape=record,style=filled,fillcolor=lightgoldenrod];")
                 .add("node[shape=plaintext];")

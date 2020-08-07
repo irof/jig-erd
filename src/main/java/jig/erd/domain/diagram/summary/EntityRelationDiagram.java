@@ -1,5 +1,6 @@
 package jig.erd.domain.diagram.summary;
 
+import jig.erd.JigProperties;
 import jig.erd.domain.primitive.EntityRelations;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class EntityRelationDiagram {
         this.entityRelations = entityRelations;
     }
 
-    public String dotText() {
+    public String dotText(JigProperties jigProperties) {
         String schemasText = schemas.stream()
                 .map(summarySchema -> summarySchema.graphText())
                 .collect(Collectors.joining("\n"));
@@ -24,7 +25,7 @@ public class EntityRelationDiagram {
         String edgesText = entityRelations.edgesText();
 
         return new StringJoiner("\n", "digraph ERD {\n", "}")
-                .add("rankdir=LR;")
+                .add("rankdir=" + jigProperties.rankdir() + ";")
                 .add("graph[style=filled,fillcolor=lightyellow];")
                 .add("node[shape=box,style=filled,fillcolor=lightgoldenrod];")
                 .add("edge[arrowhead=open, style=dashed];")

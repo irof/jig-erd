@@ -18,6 +18,7 @@ public class JigProperties {
     Path outputDirectory = Paths.get(System.getProperty("user.dir"));
     String outputPrefix = "jig-erd";
     DocumentFormat outputFormat = DocumentFormat.SVG;
+    String outputRankdir = "LR";
 
     void set(JigProperty jigProperty, String value) {
         try {
@@ -34,6 +35,13 @@ public class JigProperties {
                     return;
                 case OUTPUT_FORMAT:
                     outputFormat = DocumentFormat.valueOf(value.toUpperCase(Locale.ENGLISH));
+                    return;
+                case OUTPUT_RANKDIR:
+                    if (value.matches("(LR|TB|RL|BT)")) {
+                        outputRankdir = value;
+                    } else {
+                        logger.warning(jigProperty + "はLR,RL,TB,BTのいずれかを指定してください。");
+                    }
                     return;
             }
         } catch (RuntimeException e) {
@@ -57,10 +65,16 @@ public class JigProperties {
         return outputFormat;
     }
 
+    public String rankdir() {
+        return outputRankdir;
+    }
+
     enum JigProperty {
         OUTPUT_DIRECTORY,
         OUTPUT_PREFIX,
-        OUTPUT_FORMAT;
+        OUTPUT_FORMAT,
+        OUTPUT_RANKDIR,
+        ;
 
         void setIfExists(JigProperties jigProperties, Properties properties) {
             String key = "jig.erd." + name().toLowerCase().replace("_", ".");

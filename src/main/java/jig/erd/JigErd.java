@@ -34,9 +34,9 @@ public class JigErd {
         Repository repository = new Repository();
         new DataBaseDefinitionLoader(dataSource, repository).load();
 
-        DotCommandResult result1 = exportDiagram(repository.columnRelationDiagram().dotText(), ViewPoint.詳細);
+        DotCommandResult result1 = exportDiagram(repository.columnRelationDiagram().dotText(jigProperties), ViewPoint.詳細);
         logger.info(result1.toString());
-        DotCommandResult result2 = exportDiagram(repository.entityRelationDiagram().dotText(), ViewPoint.概要);
+        DotCommandResult result2 = exportDiagram(repository.entityRelationDiagram().dotText(jigProperties), ViewPoint.概要);
         logger.info(result2.toString());
     }
 
