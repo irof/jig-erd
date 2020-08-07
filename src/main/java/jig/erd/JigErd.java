@@ -2,6 +2,7 @@ package jig.erd;
 
 import jig.erd.application.repository.Repository;
 import jig.erd.infrastructure.DataBaseDefinitionLoader;
+import jig.erd.infrastructure.DotCommandRunner;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class JigErd {
@@ -37,28 +37,17 @@ public class JigErd {
     private void exportDiagram(String graphText, String diagramFileName) {
         try {
             Path dir = Paths.get("");
-            Path gvPath = dir.resolve(diagramFileName + ".gv");
+            Path gvPath = dir.resolve(diagramFileName + ".gv").toAbsolutePath();
             Files.writeString(gvPath, graphText, StandardCharsets.UTF_8);
-            logger.info("DOT file: " + gvPath.toAbsolutePath());
+            logger.info("DOT file: " + gvPath);
 
-            Path imagePath = dir.resolve(diagramFileName + ".svg");
+            Path imagePath = dir.resolve(diagramFileName + ".svg").toAbsolutePath();
 
-            String[] dotCommand = {"dot", "-Tsvg", "-o" + imagePath.toAbsolutePath(), gvPath.toAbsolutePath().toString()};
-            logger.info("command: " + Arrays.toString(dotCommand));
-
-            int code = new ProcessBuilder()
-                    .command(dotCommand)
-                    .start()
-                    .waitFor();
-            if (code == 0) {
-                logger.info("image file: " + imagePath.toAbsolutePath());
-                logger.info("delete DOT file.");
-                Files.deleteIfExists(gvPath);
-            } else {
-                logger.warning("dot command failed: exit code: " + code);
-            }
-        } catch (IOException | InterruptedException e) {
+            DotCommandRunner dotCommandRunner = new DotCommandRunner();
+            dotCommandRunner.run(gvPath, imagePath);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
