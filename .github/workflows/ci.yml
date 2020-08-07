@@ -10,3 +10,9 @@ jobs:
         with:
           java-version: '11'
       - run: ./gradlew build
+      - name: upload test report
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-report
+          path: app/build/reports/tests/test
