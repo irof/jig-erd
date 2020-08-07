@@ -1,10 +1,11 @@
 package jig.erd.infrastructure.process;
 
-import jig.erd.infrastructure.DotCommandRunner;
 import jig.erd.infrastructure.DotCommandResult;
+import jig.erd.infrastructure.DotCommandRunner;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -36,8 +37,11 @@ public class DotProcessExecutor {
             Future<DotCommandResult> result = executorService.submit(new ProcessResultHandler(process, commandTimeout));
 
             return result.get().withMessage(firstLine.get());
-        } catch (ExecutionException | InterruptedException | IOException e) {
-            throw new RuntimeException(e.getCause());
+        } catch (ExecutionException | InterruptedException e) {
+            logger.warning(e.toString());
+            return DotCommandResult.failure();
+        } catch (IOException e) {
+            throw new UncheckedIOException("process IO Exception", e);
         }
     }
 }
