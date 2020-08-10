@@ -19,8 +19,8 @@ PKや列型、その他制約は扱いません。詳細な情報は他のツー
 
 ファイル名、形式は設定で変更できます。
 
-### スキーマ、テーブルのみ
-![summary](./document/library-erd-overview.png)
+### スキーマのみ
+![overview](./document/library-erd-overview.png)
 
 ### スキーマ、テーブルのみ
 ![summary](./document/library-erd-summary.png)
