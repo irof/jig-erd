@@ -134,16 +134,12 @@ VERSION=0.0.4 ./gradlew bintrayUpload
 
 ## 未定な予定
 
-- [x] H2database
-- [x] Windows
-- [x] FKのカラムくらいはだす
-- [x] 出力形式や出力先などの設定
-- [x] PostgreSQL
-- [x] TABLEのCOMMENTを使う
-- [ ] PK/UKのカラムをだす？
-- [ ] COLUMNのCOMMENTを使う？
+- [ ] GitHub Actionsでbintrayリリース
+- [ ] jdbcドライバ入れたexecutable jar
+- [ ] PostgreSQLのTABLEのCOMMENTがある場合は使う
+- [ ] COLUMNのCOMMENTがある場合は使う
 - [ ] SpringBootStarter
-- [x] スタンドアロン
+- [ ] dddjavaに移す
 - [ ] jCenter
 - [ ] 他のDB
 
