@@ -139,6 +139,7 @@ VERSION=0.0.4 ./gradlew bintrayUpload
 
 ## 未定な予定
 
+- [ ] SQLファイルを読み込んで出力するモード
 - [ ] GitHub Actionsでbintrayリリース
 - [ ] jdbcドライバ入れたexecutable jar
 - [ ] PostgreSQLのTABLEのCOMMENTがある場合は使う
