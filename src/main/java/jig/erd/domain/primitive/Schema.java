@@ -14,4 +14,8 @@ public class Schema {
     public boolean matches(Schema schema) {
         return this.name.equals(schema.name);
     }
+
+    public String nodeText() {
+        return String.format("%s[label=\"%s\"]", name(), name());
+    }
 }

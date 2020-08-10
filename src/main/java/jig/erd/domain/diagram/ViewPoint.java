@@ -3,7 +3,7 @@ package jig.erd.domain.diagram;
 public enum ViewPoint {
     詳細("detail"),
     概要("summary"),
-    俯瞰("");
+    俯瞰("overview");
 
     String suffix;
 

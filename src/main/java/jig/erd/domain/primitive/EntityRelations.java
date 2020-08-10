@@ -2,7 +2,7 @@ package jig.erd.domain.primitive;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.*;
 
 public class EntityRelations {
     List<EntityRelation> list;
@@ -16,5 +16,10 @@ public class EntityRelations {
                 .map(EntityRelation::edgeText)
                 .sorted().distinct()
                 .collect(joining(";\n", "", ";\n"));
+    }
+
+    public SchemaRelations toSchemaRelations() {
+        return list.stream().map(EntityRelation::toSchemaRelation)
+                .collect(collectingAndThen(toList(), SchemaRelations::new));
     }
 }

@@ -4,6 +4,7 @@ import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
 import jig.erd.domain.diagram.detail.DetailEntities;
 import jig.erd.domain.diagram.detail.DetailEntity;
 import jig.erd.domain.diagram.detail.DetailSchema;
+import jig.erd.domain.diagram.overview.SchemaRelationDiagram;
 import jig.erd.domain.diagram.summary.EntityRelationDiagram;
 import jig.erd.domain.diagram.summary.SummarySchema;
 import jig.erd.domain.primitive.*;
@@ -100,5 +101,9 @@ public class Repository {
     Entities entities(Schema schema) {
         Entities allEntities = new Entities(entities);
         return allEntities.only(schema);
+    }
+
+    public SchemaRelationDiagram schemaRelationDiagram() {
+        return new SchemaRelationDiagram(schemas, columnRelations().toEntityRelations().toSchemaRelations());
     }
 }

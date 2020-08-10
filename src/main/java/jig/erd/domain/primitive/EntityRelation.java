@@ -12,4 +12,8 @@ public class EntityRelation {
     public String edgeText() {
         return String.format("%s -> %s", from.nodeIdText(), to.nodeIdText());
     }
+
+    public SchemaRelation toSchemaRelation() {
+        return new SchemaRelation(from.schema, to.schema);
+    }
 }

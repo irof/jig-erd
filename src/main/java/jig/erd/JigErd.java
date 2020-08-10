@@ -56,6 +56,8 @@ public class JigErd {
         logger.info(result1.toString());
         DotCommandResult result2 = exportDiagram(repository.entityRelationDiagram().dotText(jigProperties), ViewPoint.概要);
         logger.info(result2.toString());
+        DotCommandResult result3 = exportDiagram(repository.schemaRelationDiagram().dotText(jigProperties), ViewPoint.俯瞰);
+        logger.info(result3.toString());
     }
 
     private DotCommandResult exportDiagram(String graphText, ViewPoint viewPoint) {
