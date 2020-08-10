@@ -11,18 +11,22 @@
 
 ## サンプル
 
-以下は [system-sekkei/library](https://github.com/system-sekkei/library) で出力したサンプルです。2種類のダイアグラムが出力されます。
+以下は [system-sekkei/library](https://github.com/system-sekkei/library) で出力したサンプルです。3種類のダイアグラムが出力されます。
 
+- `jig-erd-overview.svg`: スキーマのみ
 - `jig-erd-summary.svg`: スキーマ、テーブルのみ
 - `jig-erd-detail.svg`: スキーマ、テーブル、外部キーカラム
 
 ファイル名、形式は設定で変更できます。
 
 ### スキーマ、テーブルのみ
-![summary](./document/jig-er-summary.png)
+![summary](./document/library-erd-overview.png)
+
+### スキーマ、テーブルのみ
+![summary](./document/library-erd-summary.png)
 
 ### スキーマ、テーブル、外部キーカラム
-![detail](./document/jig-er-detail.png)
+![detail](./document/library-erd-detail.png)
 
 ## 前提条件
 
