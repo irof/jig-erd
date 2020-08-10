@@ -5,34 +5,49 @@ import jig.erd.domain.diagram.ViewPoint;
 import jig.erd.infrastructure.DotCommandResult;
 import jig.erd.infrastructure.DotCommandRunner;
 import jig.erd.infrastructure.database.DataBaseDefinitionLoader;
+import jig.erd.infrastructure.database.JdbcConnectionProvider;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.DriverManager;
 import java.util.logging.Logger;
 
 public class JigErd {
-    Logger logger = Logger.getLogger(JigErd.class.getName());
+    static final Logger logger = Logger.getLogger(JigErd.class.getName());
 
-    DataSource dataSource;
+    JdbcConnectionProvider jdbcConnectionProvider;
     JigProperties jigProperties;
 
-    public JigErd(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public JigErd(JdbcConnectionProvider jdbcConnectionProvider) {
+        this.jdbcConnectionProvider = jdbcConnectionProvider;
         jigProperties = JigProperties.get();
         jigProperties.load();
     }
 
+    public static void main(String[] args) {
+        if (args.length != 3) {
+            logger.info("JIG-ERD 0.0.4\n\nusage:\n" +
+                    "  java -cp jig-erd.jar:{jdbcJAR} " + JigErd.class.getName() + " {url} {user} {password}\n");
+            return;
+        }
+        String url = args[0];
+        String user = args[1];
+        String pass = args[2];
+        JigErd instance = new JigErd(() -> DriverManager.getConnection(url, user, pass));
+        instance.run();
+    }
+
     public static void run(DataSource dataSource) {
-        JigErd jigErd = new JigErd(dataSource);
+        JigErd jigErd = new JigErd(dataSource::getConnection);
         jigErd.run();
     }
 
     public void run() {
         Repository repository = new Repository();
-        new DataBaseDefinitionLoader(dataSource, repository).load();
+        new DataBaseDefinitionLoader(jdbcConnectionProvider, repository).load();
 
         DotCommandResult result1 = exportDiagram(repository.columnRelationDiagram().dotText(jigProperties), ViewPoint.詳細);
         logger.info(result1.toString());

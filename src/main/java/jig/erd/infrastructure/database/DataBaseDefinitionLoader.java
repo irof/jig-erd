@@ -3,22 +3,21 @@ package jig.erd.infrastructure.database;
 import jig.erd.application.repository.Repository;
 import jig.erd.domain.environment.RDBMS;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DataBaseDefinitionLoader {
 
-    DataSource dataSource;
+    JdbcConnectionProvider jdbcConnectionProvider;
     Repository repository;
 
-    public DataBaseDefinitionLoader(DataSource dataSource, Repository repository) {
-        this.dataSource = dataSource;
+    public DataBaseDefinitionLoader(JdbcConnectionProvider jdbcConnectionProvider, Repository repository) {
+        this.jdbcConnectionProvider = jdbcConnectionProvider;
         this.repository = repository;
     }
 
     public void load() {
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = jdbcConnectionProvider.getConnection()) {
             String url = conn.getMetaData().getURL();
 
             RDBMS rdbms = RDBMS.from(url);

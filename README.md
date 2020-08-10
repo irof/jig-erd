@@ -49,7 +49,21 @@
 
 ## Getting Started
 
-依存関係に追加する。
+### コマンドラインから使う
+
+- jig-erd-x.x.x.jarをダウンロード
+- jdbcをダウンロード（ `postgresql-42.2.14.jar` など ）
+- 以下のコマンドを実行
+
+```
+java -cp jig-erd-x.x.x.jar:postgresql-42.2.14.jar \
+    jig.erd.JigErd {url} {user} {password}
+```
+url, user, passは適宜置き換えてください。
+
+### Spring Boot Testで使う
+
+依存に追加する。
 
 ```groovy
 repositories {
@@ -59,7 +73,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'irof:jig-erd:+'
+    testImplementation 'irof:jig-erd:0.+'
 }
 ```
 
@@ -111,7 +125,7 @@ Tagを作るとGitHub Actionsがやります。
 ### bintray
 
 ```
-VERSION=0.0.3 ./gradlew bintrayUpload
+VERSION=0.0.4 ./gradlew bintrayUpload
 ```
 
 ## 未定な予定
@@ -120,12 +134,12 @@ VERSION=0.0.3 ./gradlew bintrayUpload
 - [x] Windows
 - [x] FKのカラムくらいはだす
 - [x] 出力形式や出力先などの設定
-- [ ] PostgreSQL
+- [x] PostgreSQL
 - [x] TABLEのCOMMENTを使う
 - [ ] PK/UKのカラムをだす？
 - [ ] COLUMNのCOMMENTを使う？
 - [ ] SpringBootStarter
-- [ ] スタンドアロン
+- [x] スタンドアロン
 - [ ] jCenter
 - [ ] 他のDB
 
