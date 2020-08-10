@@ -56,14 +56,16 @@
 ### コマンドラインから使う
 
 - jig-erd-x.x.x.jarをダウンロード
-- jdbcをダウンロード（ `postgresql-42.2.14.jar` など ）
+    - [GitHub Packages](https://github.com/irof/jig-erd/packages/344869) から
+- JDBCドライバ（ `postgresql-42.2.14.jar` など ）をダウンロード
+    - [JDBCドライバダウンロードページ](https://jdbc.postgresql.org/) などから
 - 以下のコマンドを実行
 
 ```
 java -cp jig-erd-x.x.x.jar:postgresql-42.2.14.jar \
     jig.erd.JigErd {url} {user} {password}
 ```
-url, user, passは適宜置き換えてください。
+url, user, passは適宜置き換えてください。urlは `jdbc:postgresql://localhost:5432/test` とかです。
 
 ### Spring Boot Testで使う
 
