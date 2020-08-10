@@ -40,6 +40,9 @@ public class JigErd {
         instance.run();
     }
 
+    /**
+     * DataSourceを使用する場合のエントリポイント
+     */
     public static void run(DataSource dataSource) {
         JigErd jigErd = new JigErd(dataSource::getConnection);
         jigErd.run();
