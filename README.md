@@ -4,10 +4,10 @@
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/805m3sh5reap9pbx/branch/master?svg=true)](https://ci.appveyor.com/project/irof/jig-erd/branch/master)
 
 ざっくりなERダイアグラムを出力します。
-現在はH2Databaseのみに対応しています。
+現在はH2DatabaseとPostgreSQLのみに対応しています。
 
-テーブルの関連だけに着目した設計の補助道具です。
-詳細な情報が欲しくなったら、他のツールを使用しましょう。
+関連だけに着目した設計の補助道具です。
+PKや列型、その他制約は扱いません。詳細な情報は他のツールの使用をお勧めします。
 
 ## サンプル
 
@@ -38,8 +38,9 @@
 |対象 |推奨 |
 |----|----|
 |Java|11以降|
-|Graphviz|最新| 2.44.1 |
-|H2 Database Engine|最新| 1.4.200  |
+|Graphviz|2.44.1 |
+|H2 Database Engine|1.4.200  |
+|PostgreSQL |11.1  |
 
 #### 動作確認環境
 
