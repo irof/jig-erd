@@ -2,9 +2,9 @@ package jig.erd;
 
 import jig.erd.application.repository.Repository;
 import jig.erd.domain.diagram.ViewPoint;
-import jig.erd.infrastructure.DataBaseDefinitionLoader;
 import jig.erd.infrastructure.DotCommandResult;
 import jig.erd.infrastructure.DotCommandRunner;
+import jig.erd.infrastructure.database.DataBaseDefinitionLoader;
 
 import javax.sql.DataSource;
 import java.io.IOException;

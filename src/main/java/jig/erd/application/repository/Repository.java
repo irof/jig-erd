@@ -11,11 +11,13 @@ import jig.erd.domain.primitive.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
 public class Repository {
+    static final Logger logger = Logger.getLogger(Repository.class.getName());
 
     List<Schema> schemas = new ArrayList<>();
     List<Entity> entities = new ArrayList<>();
@@ -25,6 +27,7 @@ public class Repository {
     public void registerRelation(ColumnIdentifier fromColumn, ColumnIdentifier toColumn) {
         ColumnRelation columnRelation = new ColumnRelation(getColumn(fromColumn), getColumn(toColumn));
         columnRelations.add(columnRelation);
+        logger.info("relation found: " + columnRelation.readableLabel());
     }
 
     public Column getColumn(ColumnIdentifier columnIdentifier) {
@@ -51,7 +54,9 @@ public class Repository {
     }
 
     public void registerEntity(Schema schema, String entityName, String entityAlias) {
-        entities.add(new Entity(schema, entityName, entityAlias));
+        Entity entity = new Entity(schema, entityName, entityAlias);
+        entities.add(entity);
+        logger.info("entity found:" + entity.readableLabel());
     }
 
     public Schema getSchema(String schemaName) {

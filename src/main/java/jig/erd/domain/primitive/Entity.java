@@ -37,4 +37,8 @@ public class Entity {
     public boolean matches(Schema schema) {
         return this.schema.matches(schema);
     }
+
+    public String readableLabel() {
+        return schema.name() + '.' + name;
+    }
 }

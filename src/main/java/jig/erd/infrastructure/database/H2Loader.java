@@ -1,39 +1,27 @@
-package jig.erd.infrastructure;
+package jig.erd.infrastructure.database;
 
 import jig.erd.application.repository.Repository;
-import jig.erd.domain.environment.RDBMS;
 import jig.erd.domain.primitive.ColumnIdentifier;
 import jig.erd.domain.primitive.Schema;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DataBaseDefinitionLoader {
+public class H2Loader {
+    private Repository repository;
 
-    DataSource dataSource;
-    Repository repository;
-
-    public DataBaseDefinitionLoader(DataSource dataSource, Repository repository) {
-        this.dataSource = dataSource;
+    public H2Loader(Repository repository) {
         this.repository = repository;
     }
 
-    public void load() {
-        try (Connection conn = dataSource.getConnection()) {
-            String url = conn.getMetaData().getURL();
-            RDBMS.from(url);
-
-            loadTables(conn);
-            loadReferences(conn);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void load(Connection conn) throws SQLException {
+        loadTables(conn);
+        loadReferences(conn);
     }
 
-    private void loadTables(Connection conn) throws SQLException {
+    void loadTables(Connection conn) throws SQLException {
         try (Statement t = conn.createStatement();
              ResultSet rs = t.executeQuery("SELECT " +
                      " TABLE_SCHEMA, TABLE_NAME, REMARKS" +
@@ -46,7 +34,7 @@ public class DataBaseDefinitionLoader {
         }
     }
 
-    private void loadReferences(Connection conn) throws SQLException {
+    void loadReferences(Connection conn) throws SQLException {
         try (Statement t = conn.createStatement();
              ResultSet rs = t.executeQuery("SELECT"
                      + " FKTABLE_SCHEMA, FKTABLE_NAME, FKCOLUMN_NAME,"

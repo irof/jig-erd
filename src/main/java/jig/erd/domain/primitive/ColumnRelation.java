@@ -16,4 +16,8 @@ public class ColumnRelation {
     EntityRelation toEntityRelation() {
         return new EntityRelation(from.entity(), to.entity());
     }
+
+    public String readableLabel() {
+        return String.format("%s -> %s", from.readableLabel(), to.readableLabel());
+    }
 }

@@ -47,4 +47,8 @@ public class Column {
     public Entity entity() {
         return entity;
     }
+
+    public String readableLabel() {
+        return entity.readableLabel() + '.' + name;
+    }
 }

@@ -1,7 +1,8 @@
 package jig.erd.domain.environment;
 
 public enum RDBMS {
-    H2("jdbc:h2:");
+    H2("jdbc:h2:"),
+    POSTGRESQL("jdbc:postgresql:");
 
     private String urlPrefix;
 
