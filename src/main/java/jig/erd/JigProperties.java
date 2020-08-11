@@ -3,8 +3,10 @@ package jig.erd;
 import jig.erd.domain.diagram.DocumentFormat;
 import jig.erd.domain.diagram.ViewPoint;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,6 +59,23 @@ public class JigProperties {
         return outputDirectory.resolve(outputPath(viewPoint, outputFormat)).toAbsolutePath();
     }
 
+    private void prepareOutputDirectory() {
+        File file = outputDirectory.toFile();
+        if (file.exists()) {
+            if (file.isDirectory() && file.canWrite()) {
+                // ディレクトリかつ書き込み可能なので対応不要
+                return;
+            }
+            throw new IllegalStateException(file.getAbsolutePath() + " がディレクトリでないか書き込みできません。");
+        }
+
+        try {
+            Files.createDirectories(outputDirectory);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
     private String outputPath(ViewPoint viewPoint, DocumentFormat documentFormat) {
         return outputPrefix + '-' + viewPoint.suffix() + documentFormat.extension();
     }
@@ -93,6 +112,7 @@ public class JigProperties {
     public void load() {
         loadClasspathConfig();
         loadCurrentDirectoryConfig();
+        prepareOutputDirectory();
     }
 
     private void loadClasspathConfig() {
