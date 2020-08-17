@@ -82,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'irof:jig-erd:0.+'
+    testImplementation 'irof:jig-erd:latest.release'
 }
 ```
 
