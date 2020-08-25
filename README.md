@@ -82,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'irof:jig-erd:0.+'
+    testImplementation 'irof:jig-erd:latest.release'
 }
 ```
 
@@ -136,18 +136,6 @@ Tagを作るとGitHub Actionsがやります。
 ```
 VERSION=0.0.4 ./gradlew bintrayUpload
 ```
-
-## 未定な予定
-
-- [ ] SQLファイルを読み込んで出力するモード
-- [ ] GitHub Actionsでbintrayリリース
-- [ ] jdbcドライバ入れたexecutable jar
-- [ ] PostgreSQLのTABLEのCOMMENTがある場合は使う
-- [ ] COLUMNのCOMMENTがある場合は使う
-- [ ] SpringBootStarter
-- [ ] dddjavaに移す
-- [ ] jCenter
-- [ ] 他のDB
 
 ## LICENSE
 
