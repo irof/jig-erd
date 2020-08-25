@@ -134,7 +134,7 @@ Tagを作るとGitHub Actionsがやります。
 ### bintray
 
 ```
-VERSION=0.0.4 ./gradlew bintrayUpload
+VERSION=0.0.5 ./gradlew bintrayUpload
 ```
 
 ## LICENSE
