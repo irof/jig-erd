@@ -74,6 +74,7 @@ url, user, passは適宜置き換えてください。urlは `jdbc:postgresql://
 
 依存に追加する。
 
+Gradle
 ```groovy
 repositories {
     maven {
@@ -86,7 +87,33 @@ dependencies {
 }
 ```
 
-実行する。
+Maven
+```xml
+<repositories>
+    <repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-jignite-maven</id>
+        <name>bintray-jignite</name>
+        <url>https://dl.bintray.com/jignite/maven</url>
+    </repository>
+</repositories>
+
+...
+<dependencies>
+    <dependency>
+        <groupId>irof</groupId>
+        <artifactId>jig-erd</artifactId>
+        <version>[0.0.5,)</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
+リポジトリサイトは [bintrayのjignite](https://bintray.com/jignite/maven/jig-erd) です。
+
+テストを作成して実行する。
 
 ```java
 @SpringBootTest
