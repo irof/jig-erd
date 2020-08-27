@@ -3,12 +3,17 @@
 [![GitHub Actions](https://github.com/irof/jig-erd/workflows/CI/badge.svg)](https://github.com/irof/jig-erd/actions?query=workflow%3ACI)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/805m3sh5reap9pbx/branch/master?svg=true)](https://ci.appveyor.com/project/irof/jig-erd/branch/master)
 
-ざっくりなERダイアグラムを出力します。
-現在はH2DatabaseとPostgreSQLのみに対応しています。
+ざっくりなER図を出力します。
+現在はH2DatabaseとPostgreSQLに対応しています。
 
 関連だけに着目したデータベース設計の補助道具です。
 
 PKや列のデータ型、その他制約と言った一般的なER図で必須な項目は扱っていません。対応予定もないです。詳細な情報は他のツールの使用をお勧めします。
+
+- [Schema Spy](https://github.com/schemaspy/schemaspy)
+- [tbls](https://github.com/k1LoW/tbls)
+- [planter](https://github.com/achiku/planter)
+- [plant_erd](https://github.com/sue445/plant_erd)
 
 ## サンプル
 
