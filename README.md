@@ -13,7 +13,7 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 - [Schema Spy](https://github.com/schemaspy/schemaspy)
 - [tbls](https://github.com/k1LoW/tbls)
 - [planter](https://github.com/achiku/planter)
-- [plant_erd](https://github.com/sue445/plant_erd)
+- [PlantERD](https://github.com/sue445/plant_erd)
 
 ## サンプル
 
