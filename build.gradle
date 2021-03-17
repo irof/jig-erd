@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
     id 'org.dddjava.jig-gradle-plugin' version '2020.8.1'
 }
 
@@ -39,10 +40,13 @@ publishing {
     repositories {
     }
     publications {
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
             from components.java
         }
     }
+}
+signing {
+    sign publishing.publications.mavenJava
 }
 
 jig {
