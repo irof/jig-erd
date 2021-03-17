@@ -7,7 +7,7 @@ plugins {
 
 sourceCompatibility = 11
 
-group = 'irof'
+group = 'com.github.irof'
 version = System.getenv("VERSION") ?: '0.0.0-SNAPSHOT'
 
 repositories {
