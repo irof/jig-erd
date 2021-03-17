@@ -42,6 +42,8 @@ public class JigErd {
 
     /**
      * DataSourceを使用する場合のエントリポイント
+     *
+     * @param dataSource ダイアグラムを出力するデータソース
      */
     public static void run(DataSource dataSource) {
         JigErd jigErd = new JigErd(dataSource::getConnection);
