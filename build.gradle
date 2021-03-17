@@ -52,25 +52,6 @@ publishing {
     }
 }
 
-
-bintray {
-    user = project.findProperty("bintray.user")
-    key = project.findProperty("bintray.key")
-
-    configurations = ['archives']
-    publications = ['gpr']
-    pkg {
-        repo = 'maven'
-        name = 'jig-erd'
-        userOrg = 'jignite'
-        websiteUrl = 'https://github.com/irof/jig-erd'
-        vcsUrl = 'https://github.com/irof/jig-erd.git'
-        licenses = ["Apache-2.0"]
-        publish = true
-        publicDownloadNumbers = true
-    }
-}
-
 jig {
     modelPattern = 'jig\\.erd\\.domain\\..+'
     documentTypes = ['PackageRelationDiagram', 'BusinessRuleRelationDiagram']
