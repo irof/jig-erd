@@ -41,7 +41,30 @@ publishing {
     }
     publications {
         mavenJava(MavenPublication) {
+            artifactId = 'jig-erd'
             from components.java
+            pom {
+                name = 'JIG ERD'
+                description = 'Entity-Relationship Diagram of JIG'
+                url = 'https://github.com/irof/jig-erd'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'irof'
+                        email = 'irof.ocean@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/irof/jig-erd.git'
+                    developerConnection = 'scm:git:git://github.com/irof/jig-erd.git'
+                    url = 'http://github.com/irof/jig-erd'
+                }
+            }
         }
     }
 }
