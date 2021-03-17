@@ -63,11 +63,13 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 
 ### コマンドラインから使う
 
+既にテーブル作成済みのDBに対して実行したい場合。
+
 - jig-erd-x.x.x.jarをダウンロード
-    - [GitHub Packages](https://github.com/irof/jig-erd/packages/344869) から
+  - [Maven Central Repository](https://repo1.maven.org/maven2/com/github/irof/jig-erd/) などから
 - JDBCドライバ（ `postgresql-42.2.14.jar` など ）をダウンロード
     - [JDBCドライバダウンロードページ](https://jdbc.postgresql.org/) などから
-- 以下のコマンドを実行
+- 実行
 
 ```
 java -cp jig-erd-x.x.x.jar:postgresql-42.2.14.jar \
@@ -77,48 +79,31 @@ url, user, passは適宜置き換えてください。urlは `jdbc:postgresql://
 
 ### Spring Boot Testで使う
 
-依存に追加する。
+SpringBootが `schema.sql` などを使用してセットアップしたDBのERDを出力します。
+依存に追加して、テスト経由で実行します。
 
 Gradle
 ```groovy
 repositories {
-    maven {
-        url "https://dl.bintray.com/jignite/maven/"
-    }
+    mavenCentral()
 }
 
 dependencies {
-    testImplementation 'irof:jig-erd:latest.release'
+    testImplementation 'com.github.irof:jig-erd:latest.release'
 }
 ```
 
 Maven
 ```xml
-<repositories>
-    <repository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <id>bintray-jignite-maven</id>
-        <name>bintray-jignite</name>
-        <url>https://dl.bintray.com/jignite/maven</url>
-    </repository>
-</repositories>
-
-...
 <dependencies>
     <dependency>
-        <groupId>irof</groupId>
+        <groupId>com.github.irof</groupId>
         <artifactId>jig-erd</artifactId>
         <version>[0.0.5,)</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
 ```
-
-リポジトリサイトは [bintrayのjignite](https://bintray.com/jignite/maven/jig-erd) です。
-
-テストを作成して実行する。
 
 ```java
 @SpringBootTest
@@ -130,10 +115,6 @@ public class Erd {
     }
 }
 ```
-
-`javax.sql.DataSource` を使って出力します。
-上記ではSpringBootTestを使用してテストコードで実行しています。
-これはマイグレーションや`DataSource`をSpringBootに任せるためです。
 
 他の出力例は [wiki](https://github.com/irof/jig-erd/wiki) を参照してください。
 
@@ -159,14 +140,12 @@ jig.erd.output.rankdir=LR
 
 ## リリース
 
-### GitHub Packages
-
-Tagを作るとGitHub Actionsがやります。
-
-### bintray
+- `gradle.properties` などで設定
+  - 署名: `signing.keyId` `signing.password` `signing.secretKeyRingFile`
+  - リポジトリの認証: `ossrhUsername`, `ossrhPassword`
 
 ```
-VERSION=0.0.5 ./gradlew bintrayUpload
+VERSION=0.0.5 ./gradlew publish
 ```
 
 ## LICENSE
