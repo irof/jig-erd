@@ -37,21 +37,10 @@ java {
 }
 
 publishing {
-    def repositoryUrl = System.getenv("REPOSITORY_URL")
-    if (repositoryUrl) {
-        repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri(repositoryUrl)
-                credentials {
-                    username = System.getenv("USERNAME")
-                    password = System.getenv("TOKEN")
-                }
-            }
-        }
+    repositories {
     }
     publications {
-        gpr(MavenPublication) {
+        maven(MavenPublication) {
             from components.java
         }
     }
