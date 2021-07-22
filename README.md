@@ -150,6 +150,9 @@ jig.erd.output.rankdir=LR
 VERSION=0.0.5 ./gradlew publish
 ```
 
+https://s01.oss.sonatype.org/#stagingRepositories からCloseとRelease
+
 ## LICENSE
 
 [Apache License 2.0](LICENSE)
+
