@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.postgresql:postgresql:42.2.14")
+    testImplementation("org.postgresql:postgresql:42.2.23")
     testImplementation("com.h2database:h2:1.4.200")
 
     testImplementation 'org.mockito:mockito-core:3.4.6'
