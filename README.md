@@ -1,5 +1,7 @@
 # JIG-ERD
 
+
+[![MavenCentral](https://maven-badges.herokuapp.com/maven-central/com.github.irof/jig-erd/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.irof/jig-erd)
 [![GitHub Actions](https://github.com/irof/jig-erd/workflows/CI/badge.svg)](https://github.com/irof/jig-erd/actions?query=workflow%3ACI)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/805m3sh5reap9pbx/branch/master?svg=true)](https://ci.appveyor.com/project/irof/jig-erd/branch/master)
 
