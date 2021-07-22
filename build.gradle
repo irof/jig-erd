@@ -11,7 +11,7 @@ group = 'com.github.irof'
 version = System.getenv("VERSION") ?: '0.0.0-SNAPSHOT'
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
