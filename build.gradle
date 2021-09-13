@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id 'org.dddjava.jig-gradle-plugin' version '2021.7.3'
+    id 'org.dddjava.jig-gradle-plugin' version '2021.9.1'
 }
 
 sourceCompatibility = 11
