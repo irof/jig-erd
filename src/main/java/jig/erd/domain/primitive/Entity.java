@@ -27,7 +27,14 @@ public class Entity {
     }
 
     public String nodeText() {
+        if (highlight()) {
+            return String.format("%s[label=\"%s\" fillcolor=orange]", nodeIdText(), label());
+        }
         return String.format("%s[label=\"%s\"]", nodeIdText(), label());
+    }
+
+    private boolean highlight() {
+        return label().startsWith("_");
     }
 
     public boolean matches(EntityIdentifier entityIdentifier) {
