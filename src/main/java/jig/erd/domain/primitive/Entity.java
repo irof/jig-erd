@@ -27,10 +27,7 @@ public class Entity {
     }
 
     public String nodeText() {
-        if (highlight()) {
-            return String.format("%s[label=\"%s\" fillcolor=orange]", nodeIdText(), label());
-        }
-        return String.format("%s[label=\"%s\"]", nodeIdText(), label());
+        return String.format("%s[label=\"%s\" fillcolor=" + nodeColor() + "]", nodeIdText(), label());
     }
 
     private boolean highlight() {
@@ -47,5 +44,12 @@ public class Entity {
 
     public String readableLabel() {
         return schema.name() + '.' + name;
+    }
+
+    public String nodeColor() {
+        if (highlight()) {
+            return "orange";
+        }
+        return "lightgoldenrod";
     }
 }
