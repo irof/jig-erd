@@ -20,7 +20,7 @@ public class JigProperties {
     Path outputDirectory = Paths.get(System.getProperty("user.dir"));
     String outputPrefix = "jig-erd";
     DocumentFormat outputFormat = DocumentFormat.SVG;
-    String outputRankdir = "LR";
+    String outputRankdir = "RL";
 
     void set(JigProperty jigProperty, String value) {
         try {
