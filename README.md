@@ -136,7 +136,7 @@ jig.erd.output.rankdir=LR
 |`jig.erd.output.directory` | 出力先ディレクトリ                                                            | 任意のディレクトリ                               | カレントディレクトリ    |
 |`jig.erd.output.prefix` | 出力ファイル名のプレフィックス                                                      | 英数、記号（`-_.`）                            | `jig-erd`     |
 |`jig.erd.output.format` | 出力ファイルの形式                                                            | `SVG`, `PNG`, `DOT`(テキスト)               | `SVG`         |
-|`jig.erd.output.rankdir` | ダイアグラムの方向 ([参考](https://graphviz.org/doc/info/attrs.html#d:rankdir)) | `LR`, `RL`, `TB`, `BT`                  | `RL`          |
+|`jig.erd.output.rankdir` | ダイアグラムの方向 ([参考](https://graphviz.org/doc/info/attrs.html#d:rankdir)) | `LR`, `RL`, `TB`, `BT`                  | `RL` (`0.0.8` 以降)   |
 |`jig.erd.filter.schema.pattern` | 出力対象となるスキーマのフィルタ条件                                                   | `Pattern#compile(String)` でコンパイルできる正規表現 | フィルタしない（全て出力） |
 
 ファイル名は `{jig.erd.output.prefix}-detail.{拡張子}` などになります。
