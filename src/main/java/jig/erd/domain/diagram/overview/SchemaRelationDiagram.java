@@ -33,4 +33,13 @@ public class SchemaRelationDiagram {
                 .add(edgesText)
                 .toString();
     }
+
+    public SchemaRelationDiagram filter(JigProperties jigProperties) {
+        return jigProperties.filterSchemaPattern()
+                .map(schemaPattern -> new SchemaRelationDiagram(
+                        schemas.stream().filter(schema -> schema.matchRegex(schemaPattern)).collect(Collectors.toList()),
+                        schemaRelations.filter(jigProperties)
+                ))
+                .orElse(this);
+    }
 }

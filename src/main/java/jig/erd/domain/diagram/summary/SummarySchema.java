@@ -4,6 +4,7 @@ import jig.erd.domain.primitive.Entities;
 import jig.erd.domain.primitive.Schema;
 
 import java.util.StringJoiner;
+import java.util.regex.Pattern;
 
 public class SummarySchema {
     Schema schema;
@@ -19,5 +20,9 @@ public class SummarySchema {
                 .add(String.format("label=\"%s\";\n", schema.name()))
                 .add(entities.nodesText())
                 .toString();
+    }
+
+    public boolean matchRegex(Pattern regex) {
+        return schema.matchRegex(regex);
     }
 }

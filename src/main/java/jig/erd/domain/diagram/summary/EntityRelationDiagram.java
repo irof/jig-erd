@@ -33,4 +33,13 @@ public class EntityRelationDiagram {
                 .add(edgesText)
                 .toString();
     }
+
+    public EntityRelationDiagram filter(JigProperties jigProperties) {
+        return jigProperties.filterSchemaPattern()
+                .map(schemaPattern -> new EntityRelationDiagram(
+                        schemas.stream().filter(summarySchema -> summarySchema.matchRegex(schemaPattern)).collect(Collectors.toList()),
+                        entityRelations.filter(jigProperties)
+                ))
+                .orElse(this);
+    }
 }

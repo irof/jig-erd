@@ -1,5 +1,7 @@
 package jig.erd.domain.primitive;
 
+import java.util.regex.Pattern;
+
 public class Schema {
     String name;
 
@@ -17,5 +19,9 @@ public class Schema {
 
     public String nodeText() {
         return String.format("%s[label=\"%s\"]", name(), name());
+    }
+
+    public boolean matchRegex(Pattern regex) {
+        return regex.matcher(name).matches();
     }
 }

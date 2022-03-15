@@ -1,6 +1,7 @@
 package jig.erd.domain.primitive;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class Entity {
     Schema schema;
@@ -51,5 +52,9 @@ public class Entity {
             return "orange";
         }
         return "lightgoldenrod";
+    }
+
+    public boolean matchesSchema(Pattern schemaPattern) {
+        return schema.matchRegex(schemaPattern);
     }
 }

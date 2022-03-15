@@ -3,16 +3,16 @@ package jig.erd;
 import jig.erd.domain.diagram.DocumentFormat;
 import jig.erd.domain.diagram.ViewPoint;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class JigProperties {
     static Logger logger = Logger.getLogger(JigProperties.class.getName());
@@ -21,6 +21,7 @@ public class JigProperties {
     String outputPrefix = "jig-erd";
     DocumentFormat outputFormat = DocumentFormat.SVG;
     String outputRankdir = "RL";
+    Pattern filterSchemaPattern = null;
 
     void set(JigProperty jigProperty, String value) {
         try {
@@ -45,9 +46,15 @@ public class JigProperties {
                         logger.warning(jigProperty + "はLR,RL,TB,BTのいずれかを指定してください。");
                     }
                     return;
+                case FILTER_SCHEMA_PATTERN:
+                    filterSchemaPattern = Pattern.compile(value);
+                    return;
             }
         } catch (RuntimeException e) {
             logger.warning(jigProperty + "に無効な値が指定されました。設定は無視されます。");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            e.printStackTrace(new PrintStream(baos));
+            logger.warning(baos.toString());
         }
     }
 
@@ -88,11 +95,17 @@ public class JigProperties {
         return outputRankdir;
     }
 
+    public Optional<Pattern> filterSchemaPattern() {
+        logger.info("filter pattern " + filterSchemaPattern);
+        return Optional.ofNullable(filterSchemaPattern);
+    }
+
     enum JigProperty {
         OUTPUT_DIRECTORY,
         OUTPUT_PREFIX,
         OUTPUT_FORMAT,
         OUTPUT_RANKDIR,
+        FILTER_SCHEMA_PATTERN,
         ;
 
         void setIfExists(JigProperties jigProperties, Properties properties) {
@@ -120,9 +133,12 @@ public class JigProperties {
         try (InputStream is = classLoader.getResourceAsStream("jig.properties")) {
             // 読めない場合はnullになる
             if (is != null) {
-                Properties properties = new Properties();
-                properties.load(is);
-                JigProperty.apply(this, properties);
+                try (Reader r = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+                    Properties properties = new Properties();
+                    properties.load(r);
+                    logger.info(properties.toString());
+                    JigProperty.apply(this, properties);
+                }
             }
         } catch (IOException e) {
             logger.warning("JIG設定ファイルの読み込みに失敗しました。設定無しで続行します。" + e.toString());
@@ -135,9 +151,10 @@ public class JigProperties {
         Path jigPropertiesPath = workDirPath.resolve("jig.properties");
         if (jigPropertiesPath.toFile().exists()) {
             logger.warning(jigPropertiesPath.toAbsolutePath() + "をロードします。");
-            try (InputStream is = Files.newInputStream(jigPropertiesPath)) {
+            try (Reader r = Files.newBufferedReader(jigPropertiesPath, StandardCharsets.UTF_8)) {
                 Properties properties = new Properties();
-                properties.load(is);
+                properties.load(r);
+                logger.info(properties.toString());
                 JigProperty.apply(this, properties);
             } catch (IOException e) {
                 logger.warning("JIG設定ファイルのロードに失敗しました。" + e.toString());

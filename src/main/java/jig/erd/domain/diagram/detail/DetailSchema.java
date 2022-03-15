@@ -3,6 +3,7 @@ package jig.erd.domain.diagram.detail;
 import jig.erd.domain.primitive.Schema;
 
 import java.util.StringJoiner;
+import java.util.regex.Pattern;
 
 public class DetailSchema {
     Schema schema;
@@ -18,5 +19,9 @@ public class DetailSchema {
                 .add(String.format("label=\"%s\";\n", schema.name()))
                 .add(entities.nodesText())
                 .toString();
+    }
+
+    public boolean matchesRegex(Pattern regex) {
+        return schema.matchRegex(regex);
     }
 }

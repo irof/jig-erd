@@ -54,11 +54,11 @@ public class JigErd {
         Repository repository = new Repository();
         new DataBaseDefinitionLoader(jdbcConnectionProvider, repository).load();
 
-        DotCommandResult result1 = exportDiagram(repository.columnRelationDiagram().dotText(jigProperties), ViewPoint.詳細);
+        DotCommandResult result1 = exportDiagram(repository.columnRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.詳細);
         logger.info(result1.toString());
-        DotCommandResult result2 = exportDiagram(repository.entityRelationDiagram().dotText(jigProperties), ViewPoint.概要);
+        DotCommandResult result2 = exportDiagram(repository.entityRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.概要);
         logger.info(result2.toString());
-        DotCommandResult result3 = exportDiagram(repository.schemaRelationDiagram().dotText(jigProperties), ViewPoint.俯瞰);
+        DotCommandResult result3 = exportDiagram(repository.schemaRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.俯瞰);
         logger.info(result3.toString());
     }
 
