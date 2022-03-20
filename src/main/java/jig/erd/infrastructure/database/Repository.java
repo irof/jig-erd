@@ -19,7 +19,7 @@ public class Repository {
     public void registerRelation(ColumnIdentifier fromColumn, ColumnIdentifier toColumn) {
         ColumnRelation columnRelation = new ColumnRelation(getColumn(fromColumn), getColumn(toColumn));
         columnRelations.add(columnRelation);
-        logger.info("relation found: " + columnRelation.readableLabel());
+        logger.fine("relation found: " + columnRelation.readableLabel());
     }
 
     private Column getColumn(ColumnIdentifier columnIdentifier) {
