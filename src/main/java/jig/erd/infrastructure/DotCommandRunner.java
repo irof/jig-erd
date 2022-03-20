@@ -27,6 +27,9 @@ public class DotCommandRunner {
             logger.info("image file: " + outputPath);
             logger.info("delete DOT file.");
             Files.deleteIfExists(inputPath);
+        } else {
+            // 失敗時にWikiにリンクする
+            logger.info("画像化に失敗しました。 https://github.com/irof/jig-erd/wiki/FAQ-GraphvizOutput を確認してください。DOT file Path: " + inputPath);
         }
 
         return result;
