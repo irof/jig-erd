@@ -50,13 +50,14 @@ public class JigErd {
     }
 
     public void run() {
-        var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load();
+        var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load().filter(jigProperties);
+        logger.info("erdRoot: " + erdRoot.summaryText());
 
-        DotCommandResult result1 = exportDiagram(erdRoot.columnRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.詳細);
+        DotCommandResult result1 = exportDiagram(erdRoot.columnRelationDiagram().dotText(jigProperties), ViewPoint.詳細);
         logger.info(result1.toString());
-        DotCommandResult result2 = exportDiagram(erdRoot.entityRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.概要);
+        DotCommandResult result2 = exportDiagram(erdRoot.entityRelationDiagram().dotText(jigProperties), ViewPoint.概要);
         logger.info(result2.toString());
-        DotCommandResult result3 = exportDiagram(erdRoot.schemaRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.俯瞰);
+        DotCommandResult result3 = exportDiagram(erdRoot.schemaRelationDiagram().dotText(jigProperties), ViewPoint.俯瞰);
         logger.info(result3.toString());
     }
 

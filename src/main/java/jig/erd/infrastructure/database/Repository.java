@@ -48,7 +48,7 @@ public class Repository {
     public void registerEntity(Schema schema, String entityName, String entityAlias) {
         Entity entity = new Entity(schema, entityName, entityAlias);
         entities.add(entity);
-        logger.info("entity found:" + entity.readableLabel());
+        logger.fine("entity found:" + entity.readableLabel());
     }
 
     public Schema getSchema(String schemaName) {

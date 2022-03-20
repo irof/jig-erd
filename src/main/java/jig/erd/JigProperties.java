@@ -96,7 +96,7 @@ public class JigProperties {
     }
 
     public Optional<Pattern> filterSchemaPattern() {
-        logger.info("filter pattern " + filterSchemaPattern);
+        logger.info("filter pattern: " + filterSchemaPattern);
         return Optional.ofNullable(filterSchemaPattern);
     }
 

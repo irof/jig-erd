@@ -1,6 +1,6 @@
 package jig.erd.domain.primitive;
 
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class Column {
     String name;
@@ -54,7 +54,7 @@ public class Column {
         return entity.readableLabel() + '.' + name;
     }
 
-    public boolean matchesSchema(Pattern schemaPattern) {
-        return entity.matchesSchema(schemaPattern);
+    public boolean matchesSchema(List<Schema> schemas) {
+        return entity.matchesSchema(schemas);
     }
 }

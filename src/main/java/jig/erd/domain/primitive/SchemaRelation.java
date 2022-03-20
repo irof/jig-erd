@@ -1,7 +1,5 @@
 package jig.erd.domain.primitive;
 
-import java.util.regex.Pattern;
-
 public class SchemaRelation {
     Schema from;
     Schema to;
@@ -17,9 +15,5 @@ public class SchemaRelation {
 
     public boolean notSelf() {
         return !from.matches(to);
-    }
-
-    public boolean anyMatchSchema(Pattern schemaPattern) {
-        return from.matchRegex(schemaPattern) && to.matchRegex(schemaPattern);
     }
 }

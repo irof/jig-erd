@@ -5,7 +5,6 @@ import jig.erd.domain.primitive.ColumnRelations;
 
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
 
@@ -35,14 +34,5 @@ public class ColumnRelationDiagram {
                 .add(schemasText)
                 .add(edgesText)
                 .toString();
-    }
-
-    public ColumnRelationDiagram filter(JigProperties jigProperties) {
-        return jigProperties.filterSchemaPattern()
-                .map(pattern -> new ColumnRelationDiagram(
-                        schemas.stream().filter(detailSchema -> detailSchema.matchesRegex(pattern)).collect(Collectors.toList()),
-                        columnRelations.filter(jigProperties)
-                ))
-                .orElse(this);
     }
 }

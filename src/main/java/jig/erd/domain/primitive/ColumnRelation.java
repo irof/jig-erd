@@ -1,6 +1,6 @@
 package jig.erd.domain.primitive;
 
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class ColumnRelation {
     Column from;
@@ -23,7 +23,7 @@ public class ColumnRelation {
         return String.format("%s -> %s", from.readableLabel(), to.readableLabel());
     }
 
-    public boolean bothMatchSchema(Pattern schemaPattern) {
+    public boolean bothMatchSchema(List<Schema> schemaPattern) {
         return from.matchesSchema(schemaPattern) && to.matchesSchema(schemaPattern);
     }
 }
