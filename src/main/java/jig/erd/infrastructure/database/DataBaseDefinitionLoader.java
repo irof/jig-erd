@@ -1,6 +1,6 @@
 package jig.erd.infrastructure.database;
 
-import jig.erd.application.repository.Repository;
+import jig.erd.domain.ErdRoot;
 import jig.erd.domain.environment.RDBMS;
 
 import java.sql.Connection;
@@ -11,12 +11,12 @@ public class DataBaseDefinitionLoader {
     JdbcConnectionProvider jdbcConnectionProvider;
     Repository repository;
 
-    public DataBaseDefinitionLoader(JdbcConnectionProvider jdbcConnectionProvider, Repository repository) {
+    public DataBaseDefinitionLoader(JdbcConnectionProvider jdbcConnectionProvider) {
         this.jdbcConnectionProvider = jdbcConnectionProvider;
-        this.repository = repository;
+        this.repository = new Repository();
     }
 
-    public void load() {
+    public ErdRoot load() {
         try (Connection conn = jdbcConnectionProvider.getConnection()) {
             String url = conn.getMetaData().getURL();
 
@@ -30,6 +30,7 @@ public class DataBaseDefinitionLoader {
                 PsqlLoader loader = new PsqlLoader(repository);
                 loader.load(conn);
             }
+            return repository.buildErdRoot();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

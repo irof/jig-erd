@@ -1,6 +1,5 @@
 package jig.erd;
 
-import jig.erd.application.repository.Repository;
 import jig.erd.domain.diagram.ViewPoint;
 import jig.erd.infrastructure.DotCommandResult;
 import jig.erd.infrastructure.DotCommandRunner;
@@ -51,14 +50,13 @@ public class JigErd {
     }
 
     public void run() {
-        Repository repository = new Repository();
-        new DataBaseDefinitionLoader(jdbcConnectionProvider, repository).load();
+        var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load();
 
-        DotCommandResult result1 = exportDiagram(repository.columnRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.詳細);
+        DotCommandResult result1 = exportDiagram(erdRoot.columnRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.詳細);
         logger.info(result1.toString());
-        DotCommandResult result2 = exportDiagram(repository.entityRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.概要);
+        DotCommandResult result2 = exportDiagram(erdRoot.entityRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.概要);
         logger.info(result2.toString());
-        DotCommandResult result3 = exportDiagram(repository.schemaRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.俯瞰);
+        DotCommandResult result3 = exportDiagram(erdRoot.schemaRelationDiagram().filter(jigProperties).dotText(jigProperties), ViewPoint.俯瞰);
         logger.info(result3.toString());
     }
 

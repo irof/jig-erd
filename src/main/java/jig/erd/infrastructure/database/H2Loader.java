@@ -1,6 +1,5 @@
 package jig.erd.infrastructure.database;
 
-import jig.erd.application.repository.Repository;
 import jig.erd.domain.primitive.ColumnIdentifier;
 import jig.erd.domain.primitive.Schema;
 
