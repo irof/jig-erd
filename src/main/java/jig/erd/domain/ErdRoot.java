@@ -74,6 +74,10 @@ public class ErdRoot {
                     logger.info("loaded schemas: " + schemas);
                     logger.info("filter schema pattern: " + pattern);
                     List<Schema> filteredSchemas = this.schemas.stream().filter(schema -> schema.matchRegex(pattern)).collect(toList());
+                    if (filteredSchemas.isEmpty()) {
+                        logger.warning("パターンに合致するスキーマが存在しませんでした。全スキーマで出力します。");
+                        return null;
+                    }
                     return new ErdRoot(
                             filteredSchemas,
                             entities.stream().filter(entity -> entity.matchesSchema(filteredSchemas)).collect(toList()),
