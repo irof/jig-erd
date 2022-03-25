@@ -46,6 +46,7 @@ public class PsqlLoader {
                      "         ON k.constraint_name = rUK.constraint_name" +
                      " INNER JOIN information_schema.key_column_usage r" +
                      "         ON rUK.unique_constraint_name = r.constraint_name" +
+                     "        AND rUK.unique_constraint_schema = r.constraint_schema" +
                      "        AND r.position_in_unique_constraint IS NULL" +
                      "        AND r.ordinal_position = k.position_in_unique_constraint" +
                      " WHERE" +
