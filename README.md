@@ -101,7 +101,7 @@ Maven
     <dependency>
         <groupId>com.github.irof</groupId>
         <artifactId>jig-erd</artifactId>
-        <version>[0.0.5,)</version>
+        <version>[0.0.11,)</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
@@ -125,6 +125,7 @@ public class Erd {
 `jig.properties` ファイルをクラスパスか実行時のカレントディレクトリに配置してください。
 
 ```properties
+# サンプル
 jig.erd.output.directory=./build
 jig.erd.output.prefix=library-er
 jig.erd.output.format=png
