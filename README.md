@@ -31,6 +31,8 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 ![overview](./document/library-erd-overview.png)
 
 ### スキーマ、テーブルのみ
+テーブル名を `_` ではじめると色が変わります。
+
 ![summary](./document/library-erd-summary.png)
 
 ### スキーマ、テーブル、外部キーカラム
