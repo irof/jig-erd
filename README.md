@@ -44,14 +44,17 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 - Graphvizがインストールされていること
     - 出力形式を `DOT` にした場合は不要。この場合は自分で変換を行ってください。
 
-### versions
+### 対象バージョン
 
-|対象 |推奨 |
-|----|----|
-|Java|11以降|
-|Graphviz|2.44.1 |
-|H2 Database Engine|1.4.200  |
-|PostgreSQL |11.1  |
+|対象 | 推奨      |
+|----|---------|
+|Java| 11以降    |
+|Graphviz| 2.44.1  |
+|H2 Database Engine| 2.1.212 |
+|PostgreSQL | 11.1    |
+
+H2 Database Engine `1.4.200` 以前を対象にする場合、jig-erd `0.0.11` 以前を使用してください。
+
 
 #### 動作確認環境
 
@@ -103,7 +106,7 @@ Maven
     <dependency>
         <groupId>com.github.irof</groupId>
         <artifactId>jig-erd</artifactId>
-        <version>[0.0.11,)</version>
+        <version>[0.0.12,)</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
