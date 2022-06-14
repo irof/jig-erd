@@ -11,7 +11,7 @@ import java.sql.Statement;
 /**
  * H2 Database Engine v2向けのLoaderです。
  *
- * @link <a href="https://www.h2database.com/html/systemtables.html">h2のINFORMATION_SCHEMAの説明</a>
+ * @see <a href="https://www.h2database.com/html/systemtables.html">h2のINFORMATION_SCHEMAの説明</a>
  */
 public class H2Loader {
     private Repository repository;
