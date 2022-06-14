@@ -44,6 +44,7 @@ public class PsqlLoader {
                      " FROM information_schema.key_column_usage k" +
                      " INNER JOIN information_schema.referential_constraints rUK" +
                      "         ON k.constraint_name = rUK.constraint_name" +
+                     "        AND k.constraint_schema = rUK.constraint_schema" +
                      " INNER JOIN information_schema.key_column_usage r" +
                      "         ON rUK.unique_constraint_name = r.constraint_name" +
                      "        AND rUK.unique_constraint_schema = r.constraint_schema" +
