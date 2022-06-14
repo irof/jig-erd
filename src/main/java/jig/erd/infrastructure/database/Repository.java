@@ -16,6 +16,23 @@ public class Repository {
     List<Column> columns = new ArrayList<>();
     List<ColumnRelation> columnRelations = new ArrayList<>();
 
+    /**
+     * テーブルを登録する
+     * @param schema スキーマ
+     * @param entityName テーブル
+     * @param entityAlias テーブル別名
+     */
+    public void registerEntity(Schema schema, String entityName, String entityAlias) {
+        Entity entity = new Entity(schema, entityName, entityAlias);
+        entities.add(entity);
+        logger.fine("entity found:" + entity.readableLabel());
+    }
+
+    /**
+     * 関連を登録する
+     * @param fromColumn 元カラム名
+     * @param toColumn 先カラム名
+     */
     public void registerRelation(ColumnIdentifier fromColumn, ColumnIdentifier toColumn) {
         ColumnRelation columnRelation = new ColumnRelation(getColumn(fromColumn), getColumn(toColumn));
         columnRelations.add(columnRelation);
@@ -43,12 +60,6 @@ public class Repository {
             }
         }
         throw new NoSuchElementException(entityIdentifier.toString());
-    }
-
-    public void registerEntity(Schema schema, String entityName, String entityAlias) {
-        Entity entity = new Entity(schema, entityName, entityAlias);
-        entities.add(entity);
-        logger.fine("entity found:" + entity.readableLabel());
     }
 
     public Schema getSchema(String schemaName) {
