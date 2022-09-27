@@ -31,7 +31,7 @@ public class H2Loader {
                      " TABLE_SCHEMA, TABLE_NAME, REMARKS" +
                      " FROM INFORMATION_SCHEMA.TABLES" +
                      " WHERE TABLE_TYPE = 'BASE TABLE'" +
-                     " AND TABLE_SCHEMA <> 'INFORMATION_SCHEMA'")) {
+                     " AND TABLE_SCHEMA NOT IN ('INFORMATION_SCHEMA', 'PG_CATALOG')")) {
             while (rs.next()) {
                 Schema schema = repository.getSchema(rs.getString("TABLE_SCHEMA"));
                 repository.registerEntity(schema, rs.getString("TABLE_NAME"), rs.getString("REMARKS"));
