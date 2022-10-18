@@ -117,6 +117,7 @@ public class JigProperties {
         try (InputStream is = classLoader.getResourceAsStream("jig.properties")) {
             // 読めない場合はnullになる
             if (is != null) {
+                logger.info("クラスパスから jig.properties をロードします。");
                 try (Reader r = new InputStreamReader(is, StandardCharsets.UTF_8)) {
                     loadProperties(r);
                 }
@@ -129,7 +130,7 @@ public class JigProperties {
     private void loadDirectoryConfig(Path directory) {
         Path jigPropertiesPath = directory.resolve("jig.properties");
         if (jigPropertiesPath.toFile().exists()) {
-            logger.warning(jigPropertiesPath.toAbsolutePath() + "をロードします。");
+            logger.info(jigPropertiesPath.toAbsolutePath() + "をロードします。");
             try (Reader r = Files.newBufferedReader(jigPropertiesPath, StandardCharsets.UTF_8)) {
                 loadProperties(r);
             } catch (IOException e) {
