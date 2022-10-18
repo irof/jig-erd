@@ -27,7 +27,7 @@ public class JigErd {
 
     public static void main(String[] args) {
         if (args.length != 3) {
-            logger.info("JIG-ERD 0.0.4\n\nusage:\n" +
+            logger.info("JIG-ERD\n\nusage:\n" +
                     "  java -cp jig-erd.jar:{jdbcJAR} " + JigErd.class.getName() + " {url} {user} {password}\n");
             return;
         }
