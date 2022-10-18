@@ -31,6 +31,7 @@ public class ErdRoot {
 
     public Digraph schemaRelationDiagram() {
         return new Digraph(
+                jigProperties -> "node[shape=box,style=filled,fillcolor=lightyellow];",
                 // nodes
                 jigProperties -> schemas.stream().map(schema -> schema.nodeText()).collect(Collectors.joining("\n")),
                 // edges
@@ -40,6 +41,8 @@ public class ErdRoot {
 
     public Digraph entityRelationDiagram() {
         return new Digraph(
+                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
+                jigProperties -> "node[shape=box,style=filled,fillcolor=lightgoldenrod];",
                 // nodes
                 jigProperties -> {
                     return schemas.stream()
@@ -53,6 +56,9 @@ public class ErdRoot {
 
     public Digraph columnRelationDiagram() {
         return new Digraph(
+                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
+                // labelにtableで書き出すのでshapeしない
+                jigProperties -> "node[shape=plain];",
                 // nodes
                 jigProperties -> {
                     Columns allColumns = new Columns(this.columns);

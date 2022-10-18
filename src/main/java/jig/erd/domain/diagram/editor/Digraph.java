@@ -17,9 +17,6 @@ public class Digraph {
     public String writeToString(JigProperties jigProperties) {
         StringJoiner digraph = new StringJoiner("\n", "digraph ERD {\n", "}")
                 .add("rankdir=" + jigProperties.rankdir() + ";")
-                .add("graph[style=filled,fillcolor=lightyellow];")
-                //.add("node[shape=record,style=filled,fillcolor=lightgoldenrod];")
-                .add("node[shape=plaintext];")
                 .add("edge[arrowhead=open, style=dashed];");
 
         contents.forEach(contentFunction -> {
