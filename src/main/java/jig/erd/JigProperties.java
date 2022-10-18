@@ -26,8 +26,11 @@ public class JigProperties {
 
     public static JigProperties create() {
         JigProperties instance = new JigProperties();
+        // 設定の読み込み、後勝ち
+        instance.loadDirectoryConfig(Paths.get(System.getProperty("user.home")).resolve(".jig"));
+        instance.loadDirectoryConfig(Paths.get(System.getProperty("user.dir")));
         instance.loadClasspathConfig();
-        instance.loadCurrentDirectoryConfig();
+
         instance.prepareOutputDirectory();
         return instance;
     }
@@ -116,7 +119,7 @@ public class JigProperties {
         FILTER_SCHEMA_PATTERN,
         ;
 
-        void setIfExists(JigProperties jigProperties, Properties properties) {
+        private void setIfExists(JigProperties jigProperties, Properties properties) {
             String key = "jig.erd." + name().toLowerCase().replace("_", ".");
             if (properties.containsKey(key)) {
                 jigProperties.set(this, properties.getProperty(key));
@@ -147,10 +150,8 @@ public class JigProperties {
         }
     }
 
-    private void loadCurrentDirectoryConfig() {
-        String userDir = System.getProperty("user.dir");
-        Path workDirPath = Paths.get(userDir);
-        Path jigPropertiesPath = workDirPath.resolve("jig.properties");
+    private void loadDirectoryConfig(Path directory) {
+        Path jigPropertiesPath = directory.resolve("jig.properties");
         if (jigPropertiesPath.toFile().exists()) {
             logger.warning(jigPropertiesPath.toAbsolutePath() + "をロードします。");
             try (Reader r = Files.newBufferedReader(jigPropertiesPath, StandardCharsets.UTF_8)) {
