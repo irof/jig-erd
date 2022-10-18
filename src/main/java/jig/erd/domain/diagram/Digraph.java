@@ -18,7 +18,7 @@ public class Digraph {
 
     public static Digraph schemaRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
-                dotAttributes -> String.format("node[shape=box,style=filled,fillcolor=%s];", dotAttributes.defaultSchemaColor()),
+                dotAttributes -> String.format("node[shape=box,style=filled,fillcolor=%s];", dotAttributes.rootSchemaColor()),
                 nodes,
                 edges::edgesText
         );
@@ -26,8 +26,8 @@ public class Digraph {
 
     public static Digraph entityRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
-                dotAttributes -> String.format("graph[style=filled,fillcolor=%s];", dotAttributes.defaultSchemaColor()),
-                dotAttributes -> String.format("node[shape=box,style=filled,fillcolor=%s];", dotAttributes.defaultEntityColor()),
+                dotAttributes -> String.format("graph[style=filled,fillcolor=%s];", dotAttributes.rootSchemaColor()),
+                dotAttributes -> String.format("node[shape=box,style=filled,fillcolor=%s];", dotAttributes.rootEntityColor()),
                 nodes,
                 edges::edgesText
         );
@@ -35,7 +35,7 @@ public class Digraph {
 
     public static Digraph columnRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
-                dotAttributes -> String.format("graph[style=filled,fillcolor=%s];", dotAttributes.defaultSchemaColor()),
+                dotAttributes -> String.format("graph[style=filled,fillcolor=%s];", dotAttributes.rootSchemaColor()),
                 // labelにtableで書き出すのでshapeしない
                 dotAttributes -> "node[shape=plain];",
                 nodes,

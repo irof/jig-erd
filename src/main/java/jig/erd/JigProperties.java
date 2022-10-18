@@ -20,8 +20,9 @@ public class JigProperties {
     Path outputDirectory = Paths.get(System.getProperty("user.dir"));
     String outputPrefix = "jig-erd";
     DocumentFormat outputFormat = DocumentFormat.SVG;
-    String outputRankdir = "RL";
     Pattern filterSchemaPattern = null;
+
+    private final Map<String, String> attributesMap = new HashMap<>();
 
     public static JigProperties create() {
         JigProperties instance = new JigProperties();
@@ -49,8 +50,9 @@ public class JigProperties {
                     outputFormat = DocumentFormat.valueOf(value.toUpperCase(Locale.ENGLISH));
                     return;
                 case OUTPUT_RANKDIR:
+                    logger.warning("jig.erd.output.rankdir は廃止されます。代わりに `jig.erd.dot.root.rankdir` を使用してください。");
                     if (value.matches("(LR|TB|RL|BT)")) {
-                        outputRankdir = value;
+                        attributesMap.put(DotAttributes.Keys.RANKDIR, value);
                     } else {
                         logger.warning(jigProperty + "はLR,RL,TB,BTのいずれかを指定してください。設定値は無視されます。");
                     }
@@ -85,10 +87,7 @@ public class JigProperties {
     }
 
     public DotAttributes toDotAttributes() {
-        Map<String, String> map = new HashMap<>();
-        map.put("root.rankdir", outputRankdir);
-
-        return new DotAttributes(map);
+        return new DotAttributes(attributesMap);
     }
 
     enum JigProperty {
@@ -119,10 +118,7 @@ public class JigProperties {
             // 読めない場合はnullになる
             if (is != null) {
                 try (Reader r = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-                    Properties properties = new Properties();
-                    properties.load(r);
-                    logger.info(properties.toString());
-                    JigProperty.apply(this, properties);
+                    loadProperties(r);
                 }
             }
         } catch (IOException e) {
@@ -135,13 +131,31 @@ public class JigProperties {
         if (jigPropertiesPath.toFile().exists()) {
             logger.warning(jigPropertiesPath.toAbsolutePath() + "をロードします。");
             try (Reader r = Files.newBufferedReader(jigPropertiesPath, StandardCharsets.UTF_8)) {
-                Properties properties = new Properties();
-                properties.load(r);
-                logger.info(properties.toString());
-                JigProperty.apply(this, properties);
+                loadProperties(r);
             } catch (IOException e) {
                 logger.log(Level.WARNING, "JIG設定ファイル'" + jigPropertiesPath + "'の読み込みに失敗しました。設定無しで続行します。", e);
             }
         }
+    }
+
+    private void loadProperties(Reader r) throws IOException {
+        Properties properties = new Properties();
+        properties.load(r);
+        logger.info(properties.toString());
+        JigProperty.apply(this, properties);
+
+        registerDotAttributes(properties);
+    }
+
+    private void registerDotAttributes(Properties properties) {
+        properties.stringPropertyNames().forEach(name -> {
+            if (name.startsWith(DotAttributes.Keys.PREFIX)) {
+                String newValue = properties.getProperty(name);
+                String oldValue = attributesMap.put(name, newValue);
+                if (oldValue != null) {
+                    logger.log(Level.INFO, String.format("override '%s': '%s' => '%s'", name, oldValue, newValue));
+                }
+            }
+        });
     }
 }
