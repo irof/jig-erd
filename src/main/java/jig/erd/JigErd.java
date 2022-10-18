@@ -71,7 +71,7 @@ public class JigErd {
             workDirectory.toFile().deleteOnExit();
 
             Path sourcePath = workDirectory.resolve(jigProperties.dotFileName(viewPoint)).toAbsolutePath();
-            Files.writeString(sourcePath, digraph.writeToString(jigProperties), StandardCharsets.UTF_8);
+            Files.writeString(sourcePath, digraph.writeToString(jigProperties.toDotAttributes()), StandardCharsets.UTF_8);
             logger.info("temporary DOT file: " + sourcePath);
 
             Path outputPath = jigProperties.outputPath(viewPoint);

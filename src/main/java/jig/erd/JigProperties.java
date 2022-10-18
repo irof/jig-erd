@@ -2,15 +2,14 @@ package jig.erd;
 
 import jig.erd.domain.diagram.DocumentFormat;
 import jig.erd.domain.diagram.ViewPoint;
+import jig.erd.domain.primitive.DotAttributes;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -81,12 +80,15 @@ public class JigProperties {
         return outputFormat;
     }
 
-    public String rankdir() {
-        return outputRankdir;
-    }
-
     public Optional<Pattern> filterSchemaPattern() {
         return Optional.ofNullable(filterSchemaPattern);
+    }
+
+    public DotAttributes toDotAttributes() {
+        Map<String, String> map = new HashMap<>();
+        map.put("root.rankdir", outputRankdir);
+
+        return new DotAttributes(map);
     }
 
     enum JigProperty {

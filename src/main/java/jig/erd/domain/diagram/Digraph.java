@@ -1,6 +1,7 @@
 package jig.erd.domain.diagram;
 
 import jig.erd.JigProperties;
+import jig.erd.domain.primitive.DotAttributes;
 import jig.erd.domain.primitive.Edges;
 
 import java.util.Arrays;
@@ -9,14 +10,14 @@ import java.util.function.Function;
 
 public class Digraph {
 
-    private final Function<JigProperties, String>[] contents;
+    private final Function<DotAttributes, String>[] contents;
 
     @SafeVarargs
-    public Digraph(Function<JigProperties, String>... contents) {
+    public Digraph(Function<DotAttributes, String>... contents) {
         this.contents = contents;
     }
 
-    public static Digraph schemaRelationDiagram(Function<JigProperties, String> nodes, Edges edges) {
+    public static Digraph schemaRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
                 jigProperties -> "node[shape=box,style=filled,fillcolor=lightyellow];",
                 nodes,
@@ -24,7 +25,7 @@ public class Digraph {
         );
     }
 
-    public static Digraph entityRelationDiagram(Function<JigProperties, String> nodes, Edges edges) {
+    public static Digraph entityRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
                 jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
                 jigProperties -> "node[shape=box,style=filled,fillcolor=lightgoldenrod];",
@@ -33,7 +34,7 @@ public class Digraph {
         );
     }
 
-    public static Digraph columnRelationDiagram(Function<JigProperties, String> nodes, Edges edges) {
+    public static Digraph columnRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
                 jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
                 // labelにtableで書き出すのでshapeしない
@@ -43,13 +44,13 @@ public class Digraph {
         );
     }
 
-    public String writeToString(JigProperties jigProperties) {
+    public String writeToString(DotAttributes dotAttributes) {
         StringJoiner digraphText = new StringJoiner("\n", "digraph ERD {\n", "}")
-                .add("rankdir=" + jigProperties.rankdir() + ";")
-                .add("edge[arrowhead=open, style=dashed];");
+                .add(dotAttributes.rootEdge());
+        dotAttributes.rootRankdir().ifPresent(digraphText::add);
 
         Arrays.asList(contents).forEach(contentFunction -> {
-            digraphText.add(contentFunction.apply(jigProperties));
+            digraphText.add(contentFunction.apply(dotAttributes));
         });
 
         return digraphText.toString();

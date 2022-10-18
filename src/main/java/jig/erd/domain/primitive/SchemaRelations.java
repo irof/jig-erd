@@ -1,7 +1,5 @@
 package jig.erd.domain.primitive;
 
-import jig.erd.JigProperties;
-
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
@@ -15,7 +13,7 @@ public class SchemaRelations implements Edges {
     }
 
     @Override
-    public String edgesText(JigProperties jigProperties) {
+    public String edgesText(DotAttributes dotAttributes) {
         return list.stream()
                 .filter(SchemaRelation::notSelf)
                 .map(SchemaRelation::edgeText)

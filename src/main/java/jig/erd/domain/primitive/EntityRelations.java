@@ -1,7 +1,5 @@
 package jig.erd.domain.primitive;
 
-import jig.erd.JigProperties;
-
 import java.util.List;
 
 import static java.util.stream.Collectors.*;
@@ -14,7 +12,7 @@ public class EntityRelations implements Edges {
     }
 
     @Override
-    public String edgesText(JigProperties jigProperties) {
+    public String edgesText(DotAttributes dotAttributes) {
         return list.stream()
                 .map(EntityRelation::edgeText)
                 .sorted().distinct()
