@@ -55,7 +55,7 @@ public class JigProperties {
                     if (value.matches("(LR|TB|RL|BT)")) {
                         outputRankdir = value;
                     } else {
-                        logger.warning(jigProperty + "はLR,RL,TB,BTのいずれかを指定してください。");
+                        logger.warning(jigProperty + "はLR,RL,TB,BTのいずれかを指定してください。設定値は無視されます。");
                     }
                     return;
                 case FILTER_SCHEMA_PATTERN:
@@ -63,10 +63,7 @@ public class JigProperties {
                     return;
             }
         } catch (RuntimeException e) {
-            logger.warning(jigProperty + "に無効な値が指定されました。設定は無視されます。");
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            e.printStackTrace(new PrintStream(baos));
-            logger.warning(baos.toString());
+            logger.log(Level.WARNING, jigProperty + "に無効な値が指定されました。設定値は無視されます。", e);
         }
     }
 
