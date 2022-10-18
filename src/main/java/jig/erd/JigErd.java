@@ -1,6 +1,7 @@
 package jig.erd;
 
 import jig.erd.domain.diagram.ViewPoint;
+import jig.erd.domain.diagram.editor.Digraph;
 import jig.erd.infrastructure.DotCommandResult;
 import jig.erd.infrastructure.DotCommandRunner;
 import jig.erd.infrastructure.database.DataBaseDefinitionLoader;
@@ -56,21 +57,21 @@ public class JigErd {
         var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load().filter(jigProperties);
         logger.info("erdRoot: " + erdRoot.summaryText());
 
-        DotCommandResult result1 = exportDiagram(erdRoot.columnRelationDiagram().edit(jigProperties), ViewPoint.詳細);
+        DotCommandResult result1 = exportDiagram(erdRoot.columnRelationDiagram(), ViewPoint.詳細);
         logger.info(result1.toString());
-        DotCommandResult result2 = exportDiagram(erdRoot.entityRelationDiagram().edit(jigProperties), ViewPoint.概要);
+        DotCommandResult result2 = exportDiagram(erdRoot.entityRelationDiagram(), ViewPoint.概要);
         logger.info(result2.toString());
-        DotCommandResult result3 = exportDiagram(erdRoot.schemaRelationDiagram().edit(jigProperties), ViewPoint.俯瞰);
+        DotCommandResult result3 = exportDiagram(erdRoot.schemaRelationDiagram(), ViewPoint.俯瞰);
         logger.info(result3.toString());
     }
 
-    private DotCommandResult exportDiagram(String graphText, ViewPoint viewPoint) {
+    private DotCommandResult exportDiagram(Digraph digraph, ViewPoint viewPoint) {
         try {
             Path workDirectory = Files.createTempDirectory("temp");
             workDirectory.toFile().deleteOnExit();
 
             Path sourcePath = workDirectory.resolve(jigProperties.dotFileName(viewPoint)).toAbsolutePath();
-            Files.writeString(sourcePath, graphText, StandardCharsets.UTF_8);
+            Files.writeString(sourcePath, digraph.writeToString(jigProperties), StandardCharsets.UTF_8);
             logger.info("temporary DOT file: " + sourcePath);
 
             Path outputPath = jigProperties.outputPath(viewPoint);
