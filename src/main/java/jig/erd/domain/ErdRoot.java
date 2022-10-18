@@ -30,36 +30,26 @@ public class ErdRoot {
     }
 
     public Digraph schemaRelationDiagram() {
-        return new Digraph(
-                jigProperties -> "node[shape=box,style=filled,fillcolor=lightyellow];",
-                // nodes
+        return Digraph.schemaRelationDiagram(
                 jigProperties -> schemas.stream().map(schema -> schema.nodeText()).collect(Collectors.joining("\n")),
-                // edges
-                jigProperties -> columnRelations().toEntityRelations().toSchemaRelations().edgesText()
+                columnRelations().toEntityRelations().toSchemaRelations()
         );
     }
 
     public Digraph entityRelationDiagram() {
-        return new Digraph(
-                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
-                jigProperties -> "node[shape=box,style=filled,fillcolor=lightgoldenrod];",
-                // nodes
+        return Digraph.entityRelationDiagram(
                 jigProperties -> {
                     return schemas.stream()
                             .map(schema -> new SummarySchema(schema, entities(schema)))
                             .map(summarySchema -> summarySchema.graphText())
                             .collect(Collectors.joining("\n"));
                 },
-                // edges
-                jigProperties -> columnRelations().toEntityRelations().edgesText());
+                columnRelations().toEntityRelations()
+        );
     }
 
     public Digraph columnRelationDiagram() {
-        return new Digraph(
-                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
-                // labelにtableで書き出すのでshapeしない
-                jigProperties -> "node[shape=plain];",
-                // nodes
+        return Digraph.columnRelationDiagram(
                 jigProperties -> {
                     Columns allColumns = new Columns(this.columns);
                     DetailEntities allEntities = entities.stream()
@@ -69,8 +59,7 @@ public class ErdRoot {
                             .map(schema -> new DetailSchema(schema, allEntities.only(schema)))
                             .map(detailSchema -> detailSchema.graphText()).collect(joining("\n"));
                 },
-                // edges
-                jigProperties -> columnRelations().edgesText()
+                columnRelations()
         );
     }
 

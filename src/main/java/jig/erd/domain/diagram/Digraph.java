@@ -1,6 +1,7 @@
 package jig.erd.domain.diagram;
 
 import jig.erd.JigProperties;
+import jig.erd.domain.primitive.Edges;
 
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -13,6 +14,33 @@ public class Digraph {
     @SafeVarargs
     public Digraph(Function<JigProperties, String>... contents) {
         this.contents = contents;
+    }
+
+    public static Digraph schemaRelationDiagram(Function<JigProperties, String> nodes, Edges edges) {
+        return new Digraph(
+                jigProperties -> "node[shape=box,style=filled,fillcolor=lightyellow];",
+                nodes,
+                edges::edgesText
+        );
+    }
+
+    public static Digraph entityRelationDiagram(Function<JigProperties, String> nodes, Edges edges) {
+        return new Digraph(
+                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
+                jigProperties -> "node[shape=box,style=filled,fillcolor=lightgoldenrod];",
+                nodes,
+                edges::edgesText
+        );
+    }
+
+    public static Digraph columnRelationDiagram(Function<JigProperties, String> nodes, Edges edges) {
+        return new Digraph(
+                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
+                // labelにtableで書き出すのでshapeしない
+                jigProperties -> "node[shape=plain];",
+                nodes,
+                edges::edgesText
+        );
     }
 
     public String writeToString(JigProperties jigProperties) {

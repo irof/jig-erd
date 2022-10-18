@@ -1,17 +1,20 @@
 package jig.erd.domain.primitive;
 
+import jig.erd.JigProperties;
+
 import java.util.List;
 
 import static java.util.stream.Collectors.*;
 
-public class ColumnRelations {
+public class ColumnRelations implements Edges {
     List<ColumnRelation> list;
 
     public ColumnRelations(List<ColumnRelation> list) {
         this.list = list;
     }
 
-    public String edgesText() {
+    @Override
+    public String edgesText(JigProperties jigProperties) {
         return list.stream()
                 .map(columnRelation -> columnRelation.edgeText())
                 .collect(joining(";\n", "", ";\n"));
