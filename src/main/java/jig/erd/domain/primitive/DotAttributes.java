@@ -61,7 +61,7 @@ public class DotAttributes {
         public static final String ROOT_SCHEMA_COLOR = PREFIX + "root.schemaColor";
         public static final String ROOT_ENTITY_COLOR = PREFIX + "root.entityColor";
 
-        public static final String CUSTOM_PREFIX = "jig.erd.dot.custom.";
+        public static final String CUSTOM_PREFIX = PREFIX + "custom.";
     }
 
     static class Customizer {
