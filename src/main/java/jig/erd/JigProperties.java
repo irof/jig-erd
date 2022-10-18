@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -142,7 +143,7 @@ public class JigProperties {
                 }
             }
         } catch (IOException e) {
-            logger.warning("JIG設定ファイルの読み込みに失敗しました。設定無しで続行します。" + e.toString());
+            logger.log(Level.WARNING, "クラスパス上のJIG設定ファイルの読み込みに失敗しました。設定無しで続行します。", e);
         }
     }
 
@@ -158,7 +159,7 @@ public class JigProperties {
                 logger.info(properties.toString());
                 JigProperty.apply(this, properties);
             } catch (IOException e) {
-                logger.warning("JIG設定ファイルのロードに失敗しました。" + e.toString());
+                logger.log(Level.WARNING, "JIG設定ファイル'" + jigPropertiesPath + "'の読み込みに失敗しました。設定無しで続行します。", e);
             }
         }
     }
