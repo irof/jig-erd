@@ -22,8 +22,7 @@ public class JigErd {
 
     public JigErd(JdbcConnectionProvider jdbcConnectionProvider) {
         this.jdbcConnectionProvider = jdbcConnectionProvider;
-        jigProperties = JigProperties.get();
-        jigProperties.load();
+        this.jigProperties = JigProperties.create();
     }
 
     public static void main(String[] args) {

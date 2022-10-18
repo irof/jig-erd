@@ -23,6 +23,14 @@ public class JigProperties {
     String outputRankdir = "RL";
     Pattern filterSchemaPattern = null;
 
+    public static JigProperties create() {
+        JigProperties instance = new JigProperties();
+        instance.loadClasspathConfig();
+        instance.loadCurrentDirectoryConfig();
+        instance.prepareOutputDirectory();
+        return instance;
+    }
+
     void set(JigProperty jigProperty, String value) {
         try {
             switch (jigProperty) {
@@ -121,12 +129,6 @@ public class JigProperties {
         }
     }
 
-    public void load() {
-        loadClasspathConfig();
-        loadCurrentDirectoryConfig();
-        prepareOutputDirectory();
-    }
-
     private void loadClasspathConfig() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try (InputStream is = classLoader.getResourceAsStream("jig.properties")) {
@@ -159,11 +161,5 @@ public class JigProperties {
                 logger.warning("JIG設定ファイルのロードに失敗しました。" + e.toString());
             }
         }
-    }
-
-    static ThreadLocal<JigProperties> holder = ThreadLocal.withInitial(() -> new JigProperties());
-
-    public static JigProperties get() {
-        return holder.get();
     }
 }
