@@ -52,7 +52,7 @@ public class JigProperties {
                 case OUTPUT_RANKDIR:
                     logger.warning("jig.erd.output.rankdir は廃止されます。代わりに `jig.erd.dot.root.rankdir` を使用してください。");
                     if (value.matches("(LR|TB|RL|BT)")) {
-                        attributesMap.put(DotAttributes.Keys.RANKDIR, value);
+                        attributesMap.put(DotAttributes.Keys.ROOT_RANKDIR, value);
                     } else {
                         logger.warning(jigProperty + "はLR,RL,TB,BTのいずれかを指定してください。設定値は無視されます。");
                     }
