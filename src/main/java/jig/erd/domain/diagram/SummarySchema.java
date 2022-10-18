@@ -1,4 +1,4 @@
-package jig.erd.domain.diagram.summary;
+package jig.erd.domain.diagram;
 
 import jig.erd.domain.primitive.Entities;
 import jig.erd.domain.primitive.Schema;

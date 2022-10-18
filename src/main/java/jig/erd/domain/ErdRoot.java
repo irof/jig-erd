@@ -1,11 +1,11 @@
 package jig.erd.domain;
 
 import jig.erd.JigProperties;
-import jig.erd.domain.diagram.detail.DetailEntities;
-import jig.erd.domain.diagram.detail.DetailEntity;
-import jig.erd.domain.diagram.detail.DetailSchema;
-import jig.erd.domain.diagram.editor.Digraph;
-import jig.erd.domain.diagram.summary.SummarySchema;
+import jig.erd.domain.diagram.DetailEntities;
+import jig.erd.domain.diagram.DetailEntity;
+import jig.erd.domain.diagram.DetailSchema;
+import jig.erd.domain.diagram.Digraph;
+import jig.erd.domain.diagram.SummarySchema;
 import jig.erd.domain.primitive.*;
 
 import java.util.List;

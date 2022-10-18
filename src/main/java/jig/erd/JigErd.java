@@ -1,7 +1,7 @@
 package jig.erd;
 
 import jig.erd.domain.diagram.ViewPoint;
-import jig.erd.domain.diagram.editor.Digraph;
+import jig.erd.domain.diagram.Digraph;
 import jig.erd.infrastructure.DotCommandResult;
 import jig.erd.infrastructure.DotCommandRunner;
 import jig.erd.infrastructure.database.DataBaseDefinitionLoader;

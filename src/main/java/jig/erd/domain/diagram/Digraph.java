@@ -1,4 +1,4 @@
-package jig.erd.domain.diagram.editor;
+package jig.erd.domain.diagram;
 
 import jig.erd.JigProperties;
 
