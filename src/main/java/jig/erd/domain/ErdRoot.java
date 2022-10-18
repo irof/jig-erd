@@ -1,20 +1,19 @@
 package jig.erd.domain;
 
 import jig.erd.JigProperties;
-import jig.erd.domain.diagram.detail.ColumnRelationDiagram;
 import jig.erd.domain.diagram.detail.DetailEntities;
 import jig.erd.domain.diagram.detail.DetailEntity;
 import jig.erd.domain.diagram.detail.DetailSchema;
-import jig.erd.domain.diagram.overview.SchemaRelationDiagram;
-import jig.erd.domain.diagram.summary.EntityRelationDiagram;
+import jig.erd.domain.diagram.editor.DotEditor;
 import jig.erd.domain.diagram.summary.SummarySchema;
 import jig.erd.domain.primitive.*;
 
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 
 public class ErdRoot {
     static final Logger logger = Logger.getLogger(ErdRoot.class.getName());
@@ -31,7 +30,7 @@ public class ErdRoot {
         this.columnRelations = columnRelations;
     }
 
-    public ColumnRelationDiagram columnRelationDiagram() {
+    public DotEditor columnRelationDiagram() {
         Columns allColumns = new Columns(this.columns);
 
         DetailEntities allEntities = entities.stream()
@@ -42,21 +41,67 @@ public class ErdRoot {
                 .map(schema -> new DetailSchema(schema, allEntities.only(schema)))
                 .collect(toList());
 
-        return new ColumnRelationDiagram(detailSchemas, columnRelations());
+        return jigProperties -> {
+            String schemasText = detailSchemas.stream()
+                    .map(detailSchema -> detailSchema.graphText())
+                    .collect(joining("\n"));
+
+            String edgesText = columnRelations().edgesText();
+
+            return new StringJoiner("\n", "digraph ERD {\n", "}")
+                    .add("rankdir=" + jigProperties.rankdir() + ";")
+                    .add("graph[style=filled,fillcolor=lightyellow];")
+                    //.add("node[shape=record,style=filled,fillcolor=lightgoldenrod];")
+                    .add("node[shape=plaintext];")
+                    .add("edge[arrowhead=open, style=dashed];")
+                    .add(schemasText)
+                    .add(edgesText)
+                    .toString();
+        };
     }
 
-    public SchemaRelationDiagram schemaRelationDiagram() {
-        return new SchemaRelationDiagram(schemas, columnRelations().toEntityRelations().toSchemaRelations());
+    public DotEditor schemaRelationDiagram() {
+        return jigProperties -> {
+            String schemasText = schemas.stream()
+                    .map(schema -> schema.nodeText())
+                    .collect(Collectors.joining("\n"));
+
+            SchemaRelations schemaRelations = columnRelations().toEntityRelations().toSchemaRelations();
+            String edgesText = schemaRelations.edgesText();
+
+            return new StringJoiner("\n", "digraph ERD {\n", "}")
+                    .add("rankdir=" + jigProperties.rankdir() + ";")
+                    .add("node[shape=box,style=filled,fillcolor=lightyellow];")
+                    .add("edge[arrowhead=open, style=dashed];")
+                    .add(schemasText)
+                    .add(edgesText)
+                    .toString();
+        };
     }
 
-    public EntityRelationDiagram entityRelationDiagram() {
+    public DotEditor entityRelationDiagram() {
         List<SummarySchema> summarySchemas = schemas.stream()
                 .map(schema -> new SummarySchema(schema, entities(schema)))
                 .collect(toList());
 
         EntityRelations entityRelations = columnRelations().toEntityRelations();
 
-        return new EntityRelationDiagram(summarySchemas, entityRelations);
+        return jigProperties -> {
+            String schemasText = summarySchemas.stream()
+                    .map(summarySchema -> summarySchema.graphText())
+                    .collect(Collectors.joining("\n"));
+
+            String edgesText = entityRelations.edgesText();
+
+            return new StringJoiner("\n", "digraph ERD {\n", "}")
+                    .add("rankdir=" + jigProperties.rankdir() + ";")
+                    .add("graph[style=filled,fillcolor=lightyellow];")
+                    .add("node[shape=box,style=filled,fillcolor=lightgoldenrod];")
+                    .add("edge[arrowhead=open, style=dashed];")
+                    .add(schemasText)
+                    .add(edgesText)
+                    .toString();
+        };
     }
 
     ColumnRelations columnRelations() {
