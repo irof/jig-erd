@@ -46,13 +46,9 @@ public class DotAttributes {
     public String entityColor(Entity entity) {
         return customizers.values().stream()
                 .filter(customizer -> customizer.condition.test(entity))
-                .map(customizer -> customizer.attributes.getOrDefault("fillcolor", defaultHighlightColor()))
+                .map(customizer -> customizer.attributes.getOrDefault("fillcolor", rootEntityColor()))
                 .findAny()
                 .orElseGet(this::rootEntityColor);
-    }
-
-    private String defaultHighlightColor() {
-        return "greenyellow";
     }
 
     public static class Keys {

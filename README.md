@@ -106,7 +106,7 @@ Maven
     <dependency>
         <groupId>com.github.irof</groupId>
         <artifactId>jig-erd</artifactId>
-        <version>[0.0.12,)</version>
+        <version>[0.0.14,)</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
@@ -127,14 +127,13 @@ public class Erd {
 
 ## 設定
 
-`jig.properties` ファイルをクラスパスか実行時のカレントディレクトリに配置してください。
+`jig.properties` ファイルをクラスパス、実行時のカレントディレクトリ、ユーザーホームの `.jig` ディレクトリに配置してください。 `run` メソッドを実行する場合は第二引数の `Map` でも指定できます。
 
 ```properties
 # サンプル
 jig.erd.output.directory=./build
 jig.erd.output.prefix=library-er
 jig.erd.output.format=png
-jig.erd.output.rankdir=LR
 ```
 
 |キー| 意味                                                                   | 許容する値                                   | 設定しない場合のデフォルト |
@@ -142,12 +141,38 @@ jig.erd.output.rankdir=LR
 |`jig.erd.output.directory` | 出力先ディレクトリ                                                            | 任意のディレクトリ                               | カレントディレクトリ    |
 |`jig.erd.output.prefix` | 出力ファイル名のプレフィックス                                                      | 英数、記号（`-_.`）                            | `jig-erd`     |
 |`jig.erd.output.format` | 出力ファイルの形式                                                            | `SVG`, `PNG`, `DOT`(テキスト)               | `SVG`         |
-|`jig.erd.output.rankdir` | ダイアグラムの方向 ([参考](https://graphviz.org/doc/info/attrs.html#d:rankdir)) | `LR`, `RL`, `TB`, `BT`                  | `RL` (`0.0.8` 以降)   |
 |`jig.erd.filter.schema.pattern` | 出力対象となるスキーマのフィルタ条件                                                   | `Pattern#compile(String)` でコンパイルできる正規表現 | フィルタしない（全て出力） |
 
 ファイル名は `{jig.erd.output.prefix}-detail.{拡張子}` などになります。
 
 正規表現にマルチバイト文字を使用する場合の `jig.properties` は `UTF-8` で記述してください。
+
+### ダイアグラム全体の設定
+`jig.erd.dot.root.{設定名}` で変更できます。
+
+- `rankdir` ダイアグラムの方向です。デフォルトは `RL` [参考](https://graphviz.org/doc/info/attrs.html#d:rankdir) 
+- `schemaColor` 全体に適用されるスキーマの色です デフォルトは `lightyellow`
+- `entityColor` 全体に適用されるエンティティの色です。デフォルトは `lightgoldenrod`
+
+使用できる色は [Graphviz](https://graphviz.org/doc/info/colors.html) を参照してください。
+
+### ダイアグラム個別要素のカスタマイズ
+`jig.erd.dot.custom.{任意のカスタマイズ名}` でノードの色などを設定できます。複数可能。優先順位は無いので対象指定で工夫してください。
+
+- 対象の指定（いかのいずれか一つ）
+  - `name-pattern` テーブル名に対する正規表現で指定します
+  - `alias-pattern` COMMENTなどで指定する、別名に対する正規表現で指定します
+  - `label-pattern` 表示されるラベル（aliasがある場合はalias、無い場合はname）に対する正規表現で指定します
+- 設定値
+  - `fillcolor` ノードの色です。
+  - ...（追加予定）
+
+デフォルトで以下の設定が入り、 `_` で始まるものがオレンジ色で表示されます。
+
+```
+jig.erd.dot.custom._.label-pattern=_.+
+jig.erd.dot.custom._.fillcolor=orange
+```
 
 ## リリース
 
