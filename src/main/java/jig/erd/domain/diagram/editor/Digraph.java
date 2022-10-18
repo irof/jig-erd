@@ -16,14 +16,14 @@ public class Digraph {
     }
 
     public String writeToString(JigProperties jigProperties) {
-        StringJoiner digraph = new StringJoiner("\n", "digraph ERD {\n", "}")
+        StringJoiner digraphText = new StringJoiner("\n", "digraph ERD {\n", "}")
                 .add("rankdir=" + jigProperties.rankdir() + ";")
                 .add("edge[arrowhead=open, style=dashed];");
 
         Arrays.asList(contents).forEach(contentFunction -> {
-            digraph.add(contentFunction.apply(jigProperties));
+            digraphText.add(contentFunction.apply(jigProperties));
         });
 
-        return digraph.toString();
+        return digraphText.toString();
     }
 }
