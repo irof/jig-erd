@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.DriverManager;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class JigErd {
@@ -48,6 +49,18 @@ public class JigErd {
      */
     public static void run(DataSource dataSource) {
         JigErd jigErd = new JigErd(dataSource::getConnection);
+        jigErd.run();
+    }
+
+    /**
+     * DataSourceとプロパティを使用する場合のエントリポイント
+     *
+     * @param dataSource ダイアグラムを出力するデータソース
+     * @param properties JIGの出力設定。jig.propertiesより優先されます。
+     */
+    public static void run(DataSource dataSource, Map<String, String> properties) {
+        JigErd jigErd = new JigErd(dataSource::getConnection);
+        jigErd.jigProperties.loadMapConfig(properties);
         jigErd.run();
     }
 

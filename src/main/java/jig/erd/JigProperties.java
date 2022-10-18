@@ -98,16 +98,16 @@ public class JigProperties {
         FILTER_SCHEMA_PATTERN,
         ;
 
-        private void setIfExists(JigProperties jigProperties, Properties properties) {
+        private void setIfExists(JigProperties jigProperties, Map<String, String> map) {
             String key = "jig.erd." + name().toLowerCase().replace("_", ".");
-            if (properties.containsKey(key)) {
-                jigProperties.set(this, properties.getProperty(key));
+            if (map.containsKey(key)) {
+                jigProperties.set(this, map.get(key));
             }
         }
 
-        static void apply(JigProperties jigProperties, Properties properties) {
+        static void apply(JigProperties jigProperties, Map<String, String> map) {
             for (JigProperty jigProperty : values()) {
-                jigProperty.setIfExists(jigProperties, properties);
+                jigProperty.setIfExists(jigProperties, map);
             }
         }
     }
@@ -142,18 +142,26 @@ public class JigProperties {
         Properties properties = new Properties();
         properties.load(r);
         logger.info(properties.toString());
-        JigProperty.apply(this, properties);
 
-        registerDotAttributes(properties);
+        HashMap<String, String> map = new HashMap<>();
+        properties.forEach((key, value) -> {
+            map.put(String.valueOf(key), String.valueOf(value));
+        });
+        loadMapConfig(map);
     }
 
-    private void registerDotAttributes(Properties properties) {
-        properties.stringPropertyNames().forEach(name -> {
-            if (name.startsWith(DotAttributes.Keys.PREFIX)) {
-                String newValue = properties.getProperty(name);
-                String oldValue = attributesMap.put(name, newValue);
+    public void loadMapConfig(Map<String, String> map) {
+        logger.info(map.toString());
+        JigProperty.apply(this, map);
+        registerDotAttributes(map);
+    }
+
+    private void registerDotAttributes(Map<String, String> map) {
+        map.forEach((key, newValue) -> {
+            if (key.startsWith(DotAttributes.Keys.PREFIX)) {
+                String oldValue = attributesMap.put(key, newValue);
                 if (oldValue != null) {
-                    logger.log(Level.INFO, String.format("override '%s': '%s' => '%s'", name, oldValue, newValue));
+                    logger.log(Level.INFO, String.format("override '%s': '%s' => '%s'", key, oldValue, newValue));
                 }
             }
         });
