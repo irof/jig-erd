@@ -1,6 +1,5 @@
 package jig.erd.domain.diagram;
 
-import jig.erd.JigProperties;
 import jig.erd.domain.primitive.DotAttributes;
 import jig.erd.domain.primitive.Edges;
 
@@ -19,7 +18,7 @@ public class Digraph {
 
     public static Digraph schemaRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
-                jigProperties -> "node[shape=box,style=filled,fillcolor=lightyellow];",
+                dotAttributes -> String.format("node[shape=box,style=filled,fillcolor=%s];", dotAttributes.defaultSchemaColor()),
                 nodes,
                 edges::edgesText
         );
@@ -27,8 +26,8 @@ public class Digraph {
 
     public static Digraph entityRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
-                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
-                jigProperties -> "node[shape=box,style=filled,fillcolor=lightgoldenrod];",
+                dotAttributes -> String.format("graph[style=filled,fillcolor=%s];", dotAttributes.defaultSchemaColor()),
+                dotAttributes -> String.format("node[shape=box,style=filled,fillcolor=%s];", dotAttributes.defaultEntityColor()),
                 nodes,
                 edges::edgesText
         );
@@ -36,9 +35,9 @@ public class Digraph {
 
     public static Digraph columnRelationDiagram(Function<DotAttributes, String> nodes, Edges edges) {
         return new Digraph(
-                jigProperties -> "graph[style=filled,fillcolor=lightyellow];",
+                dotAttributes -> String.format("graph[style=filled,fillcolor=%s];", dotAttributes.defaultSchemaColor()),
                 // labelにtableで書き出すのでshapeしない
-                jigProperties -> "node[shape=plain];",
+                dotAttributes -> "node[shape=plain];",
                 nodes,
                 edges::edgesText
         );
@@ -46,8 +45,8 @@ public class Digraph {
 
     public String writeToString(DotAttributes dotAttributes) {
         StringJoiner digraphText = new StringJoiner("\n", "digraph ERD {\n", "}")
-                .add(dotAttributes.rootEdge());
-        dotAttributes.rootRankdir().ifPresent(digraphText::add);
+                .add(dotAttributes.rootRankdir())
+                .add(dotAttributes.edgeDefault());
 
         Arrays.asList(contents).forEach(contentFunction -> {
             digraphText.add(contentFunction.apply(dotAttributes));

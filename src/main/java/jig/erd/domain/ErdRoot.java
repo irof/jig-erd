@@ -31,14 +31,14 @@ public class ErdRoot {
 
     public Digraph schemaRelationDiagram() {
         return Digraph.schemaRelationDiagram(
-                jigProperties -> schemas.stream().map(schema -> schema.nodeText()).collect(Collectors.joining("\n")),
+                dotAttributes -> schemas.stream().map(schema -> schema.nodeText()).collect(Collectors.joining("\n")),
                 columnRelations().toEntityRelations().toSchemaRelations()
         );
     }
 
     public Digraph entityRelationDiagram() {
         return Digraph.entityRelationDiagram(
-                jigProperties -> {
+                dotAttributes -> {
                     return schemas.stream()
                             .map(schema -> new SummarySchema(schema, entities(schema)))
                             .map(summarySchema -> summarySchema.graphText())
@@ -50,7 +50,7 @@ public class ErdRoot {
 
     public Digraph columnRelationDiagram() {
         return Digraph.columnRelationDiagram(
-                jigProperties -> {
+                dotAttributes -> {
                     Columns allColumns = new Columns(this.columns);
                     DetailEntities allEntities = entities.stream()
                             .map(entity -> new DetailEntity(entity, allColumns.only(entity)))

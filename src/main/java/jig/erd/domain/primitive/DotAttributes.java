@@ -1,7 +1,6 @@
 package jig.erd.domain.primitive;
 
 import java.util.Map;
-import java.util.Optional;
 
 public class DotAttributes {
 
@@ -11,12 +10,19 @@ public class DotAttributes {
         this.map = map;
     }
 
-    public Optional<String> rootRankdir() {
-        return Optional.ofNullable(map.get("root.rankdir"))
-                .map(value -> "rankdir=" + value + ";");
+    public String rootRankdir() {
+        return String.format("rankdir=%s;", map.getOrDefault("root.rankdir", "RL"));
     }
 
-    public String rootEdge() {
+    public String edgeDefault() {
         return "edge[arrowhead=open, style=dashed];";
+    }
+
+    public String defaultSchemaColor() {
+        return "lightyellow";
+    }
+
+    public String defaultEntityColor() {
+        return "lightgoldenrod";
     }
 }
