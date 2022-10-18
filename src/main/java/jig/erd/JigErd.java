@@ -7,7 +7,9 @@ import jig.erd.infrastructure.database.DataBaseDefinitionLoader;
 import jig.erd.infrastructure.database.JdbcConnectionProvider;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,6 +51,8 @@ public class JigErd {
     }
 
     public void run() {
+        prepareOutputDirectory(jigProperties.outputDirectory);
+
         var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load().filter(jigProperties);
         logger.info("erdRoot: " + erdRoot.summaryText());
 
@@ -78,4 +82,20 @@ public class JigErd {
         }
     }
 
+    private void prepareOutputDirectory(Path outputDirectory) {
+        File file = outputDirectory.toFile();
+        if (file.exists()) {
+            if (file.isDirectory() && file.canWrite()) {
+                // ディレクトリかつ書き込み可能なので対応不要
+                return;
+            }
+            throw new IllegalStateException(file.getAbsolutePath() + " がディレクトリでないか書き込みできません。");
+        }
+
+        try {
+            Files.createDirectories(outputDirectory);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 }

@@ -30,8 +30,6 @@ public class JigProperties {
         instance.loadDirectoryConfig(Paths.get(System.getProperty("user.home")).resolve(".jig"));
         instance.loadDirectoryConfig(Paths.get(System.getProperty("user.dir")));
         instance.loadClasspathConfig();
-
-        instance.prepareOutputDirectory();
         return instance;
     }
 
@@ -73,23 +71,6 @@ public class JigProperties {
 
     public Path outputPath(ViewPoint viewPoint) {
         return outputDirectory.resolve(outputPath(viewPoint, outputFormat)).toAbsolutePath();
-    }
-
-    private void prepareOutputDirectory() {
-        File file = outputDirectory.toFile();
-        if (file.exists()) {
-            if (file.isDirectory() && file.canWrite()) {
-                // ディレクトリかつ書き込み可能なので対応不要
-                return;
-            }
-            throw new IllegalStateException(file.getAbsolutePath() + " がディレクトリでないか書き込みできません。");
-        }
-
-        try {
-            Files.createDirectories(outputDirectory);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 
     private String outputPath(ViewPoint viewPoint, DocumentFormat documentFormat) {
