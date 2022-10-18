@@ -40,8 +40,11 @@ public class ErdRoot {
         return Digraph.entityRelationDiagram(
                 dotAttributes -> {
                     return schemas.stream()
-                            .map(schema -> new SummarySchema(schema, entities(schema)))
-                            .map(summarySchema -> summarySchema.graphText())
+                            .map(schema -> {
+                                Entities allEntities = new Entities(entities);
+                                SummarySchema summarySchema = new SummarySchema(schema, allEntities.only(schema));
+                                return summarySchema.graphText();
+                            })
                             .collect(Collectors.joining("\n"));
                 },
                 columnRelations().toEntityRelations()
@@ -65,11 +68,6 @@ public class ErdRoot {
 
     ColumnRelations columnRelations() {
         return new ColumnRelations(columnRelations);
-    }
-
-    Entities entities(Schema schema) {
-        Entities allEntities = new Entities(entities);
-        return allEntities.only(schema);
     }
 
     public ErdRoot filter(JigProperties jigProperties) {
