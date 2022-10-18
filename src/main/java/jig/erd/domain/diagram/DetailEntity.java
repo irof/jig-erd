@@ -1,6 +1,7 @@
 package jig.erd.domain.diagram;
 
 import jig.erd.domain.primitive.Columns;
+import jig.erd.domain.primitive.DotAttributes;
 import jig.erd.domain.primitive.Entity;
 import jig.erd.domain.primitive.Schema;
 
@@ -18,9 +19,9 @@ public class DetailEntity {
         return String.format("%s[label=\"%s\"]", entity.nodeIdText(), label);
     }
 
-    public String htmlNodeText() {
+    public String htmlNodeText(DotAttributes dotAttributes) {
         String label = "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" BGCOLOR=\"lemonchiffon2\">"
-                + "<TR><TD ALIGN=\"CENTER\" CELLPADDING=\"5\" BGCOLOR=\"" + entity.nodeColor() + "\"><B>" + entity.label() + "</B></TD></TR>"
+                + "<TR><TD ALIGN=\"CENTER\" CELLPADDING=\"5\" BGCOLOR=\"" + entity.nodeColor(dotAttributes) + "\"><B>" + entity.label() + "</B></TD></TR>"
                 + columns.htmlColumnsText()
                 + "</TABLE>";
         return String.format("%s[label=<%s>]", entity.nodeIdText(), label);

@@ -11,9 +11,9 @@ public class Entities {
         this.list = list;
     }
 
-    public String nodesText() {
+    public String nodesText(DotAttributes dotAttributes) {
         return list.stream()
-                .map(Entity::nodeText)
+                .map(entity -> entity.nodeText(dotAttributes))
                 .collect(joining(";\n", "", ";\n"));
     }
 

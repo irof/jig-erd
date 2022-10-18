@@ -1,5 +1,6 @@
 package jig.erd.domain.diagram;
 
+import jig.erd.domain.primitive.DotAttributes;
 import jig.erd.domain.primitive.Schema;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class DetailEntities {
                 .collect(collectingAndThen(toList(), DetailEntities::new));
     }
 
-    public String nodesText() {
+    public String nodesText(DotAttributes dotAttributes) {
         return list.stream()
-                .map(DetailEntity::htmlNodeText)
+                .map(detailEntity -> detailEntity.htmlNodeText(dotAttributes))
                 .collect(Collectors.joining(";\n", "", ";\n"));
     }
 }

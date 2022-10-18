@@ -43,7 +43,7 @@ public class ErdRoot {
                             .map(schema -> {
                                 Entities allEntities = new Entities(entities);
                                 SummarySchema summarySchema = new SummarySchema(schema, allEntities.only(schema));
-                                return summarySchema.graphText();
+                                return summarySchema.graphText(dotAttributes);
                             })
                             .collect(Collectors.joining("\n"));
                 },
@@ -60,7 +60,7 @@ public class ErdRoot {
                             .collect(collectingAndThen(toList(), DetailEntities::new));
                     return schemas.stream()
                             .map(schema -> new DetailSchema(schema, allEntities.only(schema)))
-                            .map(detailSchema -> detailSchema.graphText()).collect(joining("\n"));
+                            .map(detailSchema -> detailSchema.graphText(dotAttributes)).collect(joining("\n"));
                 },
                 columnRelations()
         );

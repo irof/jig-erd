@@ -27,12 +27,8 @@ public class Entity {
         return String.format("\"%s.%s\"", schema.name(), name);
     }
 
-    public String nodeText() {
-        return String.format("%s[label=\"%s\" fillcolor=" + nodeColor() + "]", nodeIdText(), label());
-    }
-
-    private boolean highlight() {
-        return label().startsWith("_");
+    public String nodeText(DotAttributes dotAttributes) {
+        return String.format("%s[label=\"%s\" fillcolor=" + nodeColor(dotAttributes) + "]", nodeIdText(), label());
     }
 
     public boolean matches(EntityIdentifier entityIdentifier) {
@@ -47,11 +43,8 @@ public class Entity {
         return schema.name() + '.' + name;
     }
 
-    public String nodeColor() {
-        if (highlight()) {
-            return "orange";
-        }
-        return "lightgoldenrod";
+    public String nodeColor(DotAttributes dotAttributes) {
+        return dotAttributes.entityColor(this);
     }
 
     public boolean matchesSchema(List<Schema> schemas) {

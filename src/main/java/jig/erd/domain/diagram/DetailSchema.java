@@ -1,5 +1,6 @@
 package jig.erd.domain.diagram;
 
+import jig.erd.domain.primitive.DotAttributes;
 import jig.erd.domain.primitive.Schema;
 
 import java.util.StringJoiner;
@@ -13,10 +14,10 @@ public class DetailSchema {
         this.entities = entities;
     }
 
-    public String graphText() {
+    public String graphText(DotAttributes dotAttributes) {
         return new StringJoiner("", "subgraph \"cluster_" + schema.name() + "\" {\n", "}\n")
                 .add(String.format("label=\"%s\";\n", schema.name()))
-                .add(entities.nodesText())
+                .add(entities.nodesText(dotAttributes))
                 .toString();
     }
 }
