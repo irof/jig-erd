@@ -2,16 +2,17 @@ package jig.erd.domain.diagram.editor;
 
 import jig.erd.JigProperties;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.StringJoiner;
 import java.util.function.Function;
 
 public class Digraph {
-    List<Function<JigProperties, String>> contents;
+
+    private final Function<JigProperties, String>[] contents;
 
     @SafeVarargs
     public Digraph(Function<JigProperties, String>... contents) {
-        this.contents = List.of(contents);
+        this.contents = contents;
     }
 
     public String writeToString(JigProperties jigProperties) {
@@ -19,7 +20,7 @@ public class Digraph {
                 .add("rankdir=" + jigProperties.rankdir() + ";")
                 .add("edge[arrowhead=open, style=dashed];");
 
-        contents.forEach(contentFunction -> {
+        Arrays.asList(contents).forEach(contentFunction -> {
             digraph.add(contentFunction.apply(jigProperties));
         });
 
