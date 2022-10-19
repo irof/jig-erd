@@ -54,9 +54,11 @@ public class DotAttributes {
 
     // https://graphviz.org/doc/info/attrs.html から設定を許容するものを列挙
     Set<String> allowEntryAttributes = Set.of(
+            "shape",
             "fillcolor",
             "color", "penwidth",
             "fontcolor", "fontsize",
+            "width", "height", "fixedsize",
             "margin"
     );
 
