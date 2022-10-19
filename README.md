@@ -161,11 +161,21 @@ jig.erd.output.format=png
 
 - 対象の指定（いかのいずれか一つ）
   - `name-pattern` テーブル名に対する正規表現で指定します
-  - `alias-pattern` COMMENTなどで指定する、別名に対する正規表現で指定します
+  - `alias-pattern` 別名（COMMENTなどで指定する）に対する正規表現で指定します
   - `label-pattern` 表示されるラベル（aliasがある場合はalias、無い場合はname）に対する正規表現で指定します
-- 設定値
-  - `fillcolor` ノードの色です。
-  - ...（追加予定）
+- 設定できる属性
+  - shape
+  - fillcolor
+  - color
+  - penwidth
+  - fontcolor
+  - fontsize
+  - width
+  - height
+  - fixedsize
+  - margin
+
+設定内容やデフォルト値などは [Graphvizのドキュメント](https://graphviz.org/doc/info/attrs.html) を参照してください。
 
 デフォルトで以下の設定が入り、 `_` で始まるものがオレンジ色で表示されます。
 

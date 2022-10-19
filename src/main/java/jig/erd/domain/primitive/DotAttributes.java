@@ -10,6 +10,20 @@ import java.util.stream.Collectors;
 public class DotAttributes {
     private static final Logger logger = Logger.getLogger(DotAttributes.class.getName());
 
+    /**
+     * entityに設定できる属性。
+     * デフォルト値などは <a href="https://graphviz.org/doc/info/attrs.html">Graphvizのドキュメント</a> を参照してください。
+     */
+    final Set<String> allowEntryAttributes = Set.of(
+            "shape",
+            "fillcolor",
+            "color", "penwidth",
+            "fontcolor", "fontsize",
+            "width", "height", "fixedsize",
+            "margin"
+    );
+
+
     private final Map<String, String> attributes;
     private final Map<String, Customizer> customizers;
 
@@ -51,16 +65,6 @@ public class DotAttributes {
                 .findAny()
                 .orElseGet(this::rootEntityColor);
     }
-
-    // https://graphviz.org/doc/info/attrs.html から設定を許容するものを列挙
-    Set<String> allowEntryAttributes = Set.of(
-            "shape",
-            "fillcolor",
-            "color", "penwidth",
-            "fontcolor", "fontsize",
-            "width", "height", "fixedsize",
-            "margin"
-    );
 
     public String additionalAttributesOf(Entity entity) {
         return customizers.values().stream()
