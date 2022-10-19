@@ -21,7 +21,7 @@ public class DetailEntity {
 
     public String htmlNodeText(DotAttributes dotAttributes) {
         String label = "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" BGCOLOR=\"lemonchiffon2\">"
-                + "<TR><TD ALIGN=\"CENTER\" CELLPADDING=\"5\" BGCOLOR=\"" + entity.nodeColor(dotAttributes) + "\"><B>" + entity.label() + "</B></TD></TR>"
+                + "<TR><TD ALIGN=\"CENTER\" CELLPADDING=\"5\" BGCOLOR=\"" + dotAttributes.entityColor(entity) + "\"><B>" + entity.label() + "</B></TD></TR>"
                 + columns.htmlColumnsText()
                 + "</TABLE>";
         return String.format("%s[label=<%s>]", entity.nodeIdText(), label);

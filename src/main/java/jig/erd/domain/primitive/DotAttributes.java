@@ -2,6 +2,7 @@ package jig.erd.domain.primitive;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -49,6 +50,23 @@ public class DotAttributes {
                 .map(customizer -> customizer.attributes.getOrDefault("fillcolor", rootEntityColor()))
                 .findAny()
                 .orElseGet(this::rootEntityColor);
+    }
+
+    // https://graphviz.org/doc/info/attrs.html から設定を許容するものを列挙
+    Set<String> allowEntryAttributes = Set.of(
+            "fillcolor",
+            "color", "penwidth",
+            "fontcolor", "fontsize",
+            "margin"
+    );
+
+    public String additionalAttributesOf(Entity entity) {
+        return customizers.values().stream()
+                .filter(customizer -> customizer.condition.test(entity))
+                .flatMap(customizer -> customizer.attributes.entrySet().stream()
+                        .filter(entry -> allowEntryAttributes.contains(entry.getKey()))
+                        .map(entry -> String.format("%s=%s", entry.getKey(), entry.getValue())))
+                .collect(Collectors.joining(";", ";", ""));
     }
 
     public static class Keys {

@@ -28,7 +28,8 @@ public class Entity {
     }
 
     public String nodeText(DotAttributes dotAttributes) {
-        return String.format("%s[label=\"%s\" fillcolor=" + nodeColor(dotAttributes) + "]", nodeIdText(), label());
+        String additionalAttribute = dotAttributes.additionalAttributesOf(this);
+        return String.format("%s[label=\"%s\"" + additionalAttribute + "]", nodeIdText(), label());
     }
 
     public boolean matches(EntityIdentifier entityIdentifier) {
@@ -41,10 +42,6 @@ public class Entity {
 
     public String readableLabel() {
         return schema.name() + '.' + name;
-    }
-
-    public String nodeColor(DotAttributes dotAttributes) {
-        return dotAttributes.entityColor(this);
     }
 
     public boolean matchesSchema(List<Schema> schemas) {
