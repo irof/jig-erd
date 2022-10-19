@@ -194,7 +194,7 @@ jig.erd.dot.custom._.fillcolor=orange
 VERSION=X.X.X ./gradlew publish
 ```
 
-https://s01.oss.sonatype.org/#stagingRepositories からCloseとRelease
+[oosrhのリポジトリマネージャー](https://s01.oss.sonatype.org/#stagingRepositories) からCloseとRelease
 
 ## LICENSE
 
