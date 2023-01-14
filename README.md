@@ -63,6 +63,7 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 | JIG     | OS                           | Java                             | Graphviz |
 |---------|------------------------------|----------------------------------|----------|
 | `0.1.0` | AppVeyor visual studio 2022  | `17`                             | `7.0.6`  |
+| `0.1.0` | GitHub Actions ubuntu-latest | `17`                             | `2.42.2` |
 | `0.0.3` | `macOS Catalina 10.15.5`     | `AdoptOpenJDK 11.0.7`            | `2.44.1` |
 | `0.0.3` | `Windows 10`                 | `jdk-14.0.2_windows-x64_bin.exe` | `2.44.1` |
 | `0.0.3` | GitHub Actions ubuntu-latest | `11`                             | `2.40.1` |
