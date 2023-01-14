@@ -5,6 +5,8 @@ branches:
 #cache:
 #  - C:\ProgramData\chocolatey\bin -> appveyor.yml
 #  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+image:
+  - Visual Studio 2022
 install:
   - choco install graphviz
   - SET JAVA_HOME=C:\Program Files\Java\jdk17
