@@ -60,12 +60,12 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 
 #### 動作確認環境
 
-|OS |Java |Graphviz |
-|----|----|----|
-|`macOS Catalina 10.15.5`| `AdoptOpenJDK 11.0.7`| `2.44.1` |
-|`Windows 10`| `jdk-14.0.2_windows-x64_bin.exe`| `2.44.1` |
-|GitHub Actions ubuntu-latest|`11` | `2.40.1` |
-|AppVeyor visual studio 2015|`11` |`2.38.0` |
+| JIG     | OS                           | Java                             | Graphviz |
+|---------|------------------------------|----------------------------------|----------|
+| `0.0.3` | `macOS Catalina 10.15.5`     | `AdoptOpenJDK 11.0.7`            | `2.44.1` |
+| `0.0.3` | `Windows 10`                 | `jdk-14.0.2_windows-x64_bin.exe` | `2.44.1` |
+| `0.0.3` | GitHub Actions ubuntu-latest | `11`                             | `2.40.1` |
+| `0.0.3` | AppVeyor visual studio 2015  | `11`                             | `2.38.0` |
 
 
 ## Getting Started
