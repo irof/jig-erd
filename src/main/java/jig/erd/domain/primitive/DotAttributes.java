@@ -100,15 +100,12 @@ public class DotAttributes {
             String value = entry.getValue();
 
             String attributeKey = key.substring(key.indexOf('.', Keys.CUSTOM_PREFIX.length() + 1) + 1);
-            switch (attributeKey) {
-                case "name-pattern":
-                    return new Customizer(entity -> entity.nameMatches(value), Map.of());
-                case "alias-pattern":
-                    return new Customizer(entity -> entity.aliasMatches(value), Map.of());
-                case "label-pattern":
-                    return new Customizer(entity -> entity.label().matches(value), Map.of());
-            }
-            return new Customizer(NONE, Map.of(attributeKey, value));
+            return switch (attributeKey) {
+                case "name-pattern" -> new Customizer(entity -> entity.nameMatches(value), Map.of());
+                case "alias-pattern" -> new Customizer(entity -> entity.aliasMatches(value), Map.of());
+                case "label-pattern" -> new Customizer(entity -> entity.label().matches(value), Map.of());
+                default -> new Customizer(NONE, Map.of(attributeKey, value));
+            };
         }
 
         Customizer merge(Customizer other) {
