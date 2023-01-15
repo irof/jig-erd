@@ -48,7 +48,7 @@ public class Repository {
 
         String refId = "r" + columns.size();
         Entity entity = getEntity(columnIdentifier.toEntityIdentifier());
-        Column column = Column.generate(columnIdentifier, refId, entity);
+        Column column = Column.generateWithoutAlias(columnIdentifier, refId, entity);
         columns.add(column);
         return column;
     }

@@ -2,25 +2,19 @@ package jig.erd.domain.primitive;
 
 import java.util.List;
 
-public class Column {
-    String name;
-    String alias;
-    String refId;
+public record Column(String name, String alias, String refId,
+                     Entity entity) {
 
-    Entity entity;
-
-    public Column(String name, String refId, Entity entity) {
-        this.name = name;
-        this.refId = refId;
-        this.entity = entity;
-    }
-
-    public static Column generate(ColumnIdentifier columnIdentifier, String refId, Entity entity) {
-        return new Column(columnIdentifier.columnName, refId, entity);
+    /**
+     * aliasを使用しないファクトリメソッド。
+     * alias=columnName
+     * aliasは現在未対応 issue#5
+     */
+    public static Column generateWithoutAlias(ColumnIdentifier columnIdentifier, String refId, Entity entity) {
+        return new Column(columnIdentifier.columnName(), columnIdentifier.columnName(), refId, entity);
     }
 
     String label() {
-        if (alias == null) return name;
         return alias;
     }
 
@@ -43,11 +37,7 @@ public class Column {
     }
 
     public boolean matches(ColumnIdentifier columnIdentifier) {
-        return this.entity.matches(columnIdentifier.toEntityIdentifier()) && this.name.equals(columnIdentifier.columnName);
-    }
-
-    public Entity entity() {
-        return entity;
+        return new ColumnIdentifier(entity(), name()).equals(columnIdentifier);
     }
 
     public String readableLabel() {

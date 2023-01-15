@@ -1,14 +1,9 @@
 package jig.erd.domain.primitive;
 
-public class ColumnIdentifier {
-    String schemaName;
-    String entityName;
-    String columnName;
+public record ColumnIdentifier(String schemaName, String entityName, String columnName) {
 
-    public ColumnIdentifier(String schemaName, String entityName, String columnName) {
-        this.schemaName = schemaName;
-        this.entityName = entityName;
-        this.columnName = columnName;
+    public ColumnIdentifier(Entity entity, String name) {
+        this(entity.schema().name(), entity.name(), name);
     }
 
     public EntityIdentifier toEntityIdentifier() {

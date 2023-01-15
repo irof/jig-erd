@@ -3,10 +3,7 @@ package jig.erd.domain.primitive;
 import java.util.List;
 import java.util.Objects;
 
-public class Entity {
-    Schema schema;
-    String name;
-    String alias;
+public record Entity(Schema schema, String name, String alias) {
 
     public Entity(Schema schema, String name, String alias) {
         this.schema = schema;
@@ -46,5 +43,13 @@ public class Entity {
 
     public boolean matchesSchema(List<Schema> schemas) {
         return schemas.contains(schema);
+    }
+
+    public boolean nameMatches(String value) {
+        return name().matches(value);
+    }
+
+    public boolean aliasMatches(String value) {
+        return alias().matches(value);
     }
 }
