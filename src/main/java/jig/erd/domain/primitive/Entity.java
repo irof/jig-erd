@@ -32,8 +32,8 @@ public class Entity {
         return String.format("%s[label=\"%s\"" + additionalAttribute + "]", nodeIdText(), label());
     }
 
-    public boolean matches(EntityIdentifier entityIdentifier) {
-        return schema.name.equals(entityIdentifier.schemaName) && name.equals(entityIdentifier.entityName);
+    public boolean matches(EntityIdentifier otherEntityIdentifier) {
+        return new EntityIdentifier(schema.name(), name).equals(otherEntityIdentifier);
     }
 
     public boolean matches(Schema schema) {
