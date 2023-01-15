@@ -90,8 +90,7 @@ public class ErdRoot {
         ).orElse(this);
     }
 
-    public String summaryText() {
-        return String.format("schemas: %d, entities: %d, columns: %d, columnRelations: %d",
-                schemas.size(), entities.size(), columns.size(), columnRelations.size());
+    public Summary summary() {
+        return new Summary(schemas.size(), entities.size(), columns.size(), columnRelations.size());
     }
 }

@@ -68,7 +68,7 @@ public class JigErd {
         prepareOutputDirectory(jigProperties.outputDirectory);
 
         var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load().filter(jigProperties);
-        logger.info("erdRoot: " + erdRoot.summaryText());
+        logger.info("erdRoot: " + erdRoot.summary().text());
 
         DotCommandResult result1 = exportDiagram(erdRoot.columnRelationDiagram(), ViewPoint.詳細);
         logger.info(result1.toString());
