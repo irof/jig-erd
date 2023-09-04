@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     testImplementation("org.postgresql:postgresql:42.6.0")
-    testImplementation("com.h2database:h2:2.1.214")
+    testImplementation("com.h2database:h2:2.2.222")
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.mockito:mockito-core:5.4.0'
