@@ -1,6 +1,5 @@
 # JIG-ERD
 
-
 [![MavenCentral](https://maven-badges.herokuapp.com/maven-central/com.github.irof/jig-erd/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.irof/jig-erd)
 [![GitHub Actions](https://github.com/irof/jig-erd/workflows/CI/badge.svg)](https://github.com/irof/jig-erd/actions?query=workflow%3ACI)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/805m3sh5reap9pbx/branch/master?svg=true)](https://ci.appveyor.com/project/irof/jig-erd/branch/master)
@@ -72,6 +71,25 @@ PKや列のデータ型、その他制約と言った一般的なER図で必須�
 
 ## Getting Started
 
+### jig-erd-spring-boot-autoconfigure
+
+webアプリケーションの場合、dependencyに追加して起動するだけです。
+
+```
+<dependencies>
+    <dependency>
+        <groupId>com.github.irof</groupId>
+        <artifactId>jig-erd-spring-boot-autoconfigure</artifactId>
+        <version>0.2.1</version>
+    </dependency>
+</dependencies>
+```
+
+- `/jig-erd` をブラウザで開くとMermaidのダイアグラムが出ます。
+    - Graphvizとは出力内容が異なります。
+    - Mermaidをメインにするかは日本語対応が微妙なので未定です。
+- `jig.erd.enabled=false` で無効になります。
+
 ### コマンドラインから使う
 
 既にテーブル作成済みのDBに対して実行したい場合。
@@ -110,7 +128,7 @@ Maven
     <dependency>
         <groupId>com.github.irof</groupId>
         <artifactId>jig-erd</artifactId>
-        <version>[0.0.14,)</version>
+        <version>0.2.1</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
