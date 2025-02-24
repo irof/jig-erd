@@ -1,5 +1,6 @@
 plugins {
     id("java-library")
+    id("org.dddjava.jig-gradle-plugin") version "2025.2.3"
 }
 
 dependencies {
@@ -12,4 +13,13 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+configure<org.dddjava.jig.gradle.JigConfig> {
+    modelPattern = "jig\\.erd\\.domain\\..+"
+    documentTypes =
+        listOf("DomainSummary", "TermTable", "PackageRelationDiagram", "BusinessRuleRelationDiagram")
+}
+tasks.named("jigReports") {
+    dependsOn("classes")
 }

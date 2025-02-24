@@ -1,5 +1,4 @@
 plugins {
-    id("org.dddjava.jig-gradle-plugin") version "2025.2.3" apply (false)
     id("maven-publish")
     id("signing")
 }
@@ -8,16 +7,6 @@ subprojects {
     plugins.apply("java")
     plugins.apply("maven-publish")
     plugins.apply("signing")
-    plugins.apply("org.dddjava.jig-gradle-plugin")
-
-    configure<org.dddjava.jig.gradle.JigConfig> {
-        modelPattern = "jig\\.erd\\.domain\\..+"
-        documentTypes =
-            listOf("DomainSummary", "TermTable", "PackageRelationDiagram", "BusinessRuleRelationDiagram")
-    }
-    tasks.named("jigReports") {
-        dependsOn("classes")
-    }
 
     repositories {
         mavenCentral()
