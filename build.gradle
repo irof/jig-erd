@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.postgresql:postgresql:42.6.0")
+    testImplementation("org.postgresql:postgresql:42.7.5")
     testImplementation("com.h2database:h2:2.2.224")
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
