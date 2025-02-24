@@ -80,6 +80,6 @@ signing {
 
 jig {
     modelPattern = 'jig\\.erd\\.domain\\..+'
-    documentTypes = ['PackageRelationDiagram', 'BusinessRuleRelationDiagram']
+    documentTypes = ['DomainSummary', 'TermTable', 'PackageRelationDiagram', 'BusinessRuleRelationDiagram']
 }
 jigReports.dependsOn(classes)
