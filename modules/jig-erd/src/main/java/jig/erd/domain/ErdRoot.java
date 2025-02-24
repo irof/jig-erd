@@ -116,7 +116,7 @@ public class ErdRoot {
                 .forEach(summaryText::add);
 
         // detail
-        StringJoiner detailText = new StringJoiner("\n", "erDiagram LR\n", "");
+        StringJoiner detailText = new StringJoiner("\n", "classDiagram\n", "");
         var columnEntitySchemaMap = columns.stream().collect(groupingBy(column -> column.entity().schema(), groupingBy(Column::entity, toList())));
         columnEntitySchemaMap.entrySet().stream().map(schemaEntry -> {
             // schemaごとにまとめる
@@ -126,17 +126,16 @@ public class ErdRoot {
             schemaEntry.getValue().entrySet().stream().map(entityEntry -> {
                 // entityの中身
                 var entity = entityEntry.getKey();
-                StringJoiner entityText = new StringJoiner("\n", "%s[\"%s\"]".formatted(entity.name(), entity.label()) + "{\n", "\n}");
+                StringJoiner entityText = new StringJoiner("\n", "class %s[\"%s\"]".formatted(entity.name(), entity.label()) + "{\n", "\n}");
                 entityEntry.getValue().stream()
-                        // 型、カラム名、制約、コメント を表示できる。型も制約も記録してないのでとりあえずカラム名だけ。
-                        .map(column -> "%s %s".formatted("x", column.name()))
+                        .map(Column::name)
                         .forEach(entityText::add);
                 return entityText.toString();
             }).forEach(schemaText::add);
             return schemaText.toString();
         }).forEach(detailText::add);
-        columnRelations().toEntityRelations().stream()
-                .map(edge -> edge.from().name() + " ||--o{ " + edge.to().name())
+        columnRelations().stream()
+                .map(edge -> "%s \"%s\" --> \"%s\" %s".formatted(edge.from().entity().name(), edge.from().name(), edge.to().name(), edge.to().entity().name()))
                 .forEach(detailText::add);
 
         return Map.of(
