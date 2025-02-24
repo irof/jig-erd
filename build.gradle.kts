@@ -4,9 +4,6 @@ plugins {
     id("signing")
 }
 
-group = "com.github.irof"
-version = System.getenv("VERSION") ?: "0.0.0-SNAPSHOT"
-
 subprojects {
     if (name == "core") {
         plugins.apply("java")
@@ -51,6 +48,8 @@ subprojects {
                 }
                 publications {
                     create<MavenPublication>("mavenJava") {
+                        group = "com.github.irof"
+                        version = System.getenv("VERSION") ?: "0.0.0-SNAPSHOT"
                         artifactId = extra["artifactId"] as String
 
                         from(components["java"])
