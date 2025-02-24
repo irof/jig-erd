@@ -105,7 +105,9 @@ public class ErdRoot {
         var entitySchemaMap = entities.stream().collect(groupingBy(Entity::schema));
         entitySchemaMap.entrySet().stream().map(entry -> {
             // schemaごとにまとめる
-            StringJoiner text = new StringJoiner("\n", "subgraph " + entry.getKey().name() + "\n", "\nend");
+            // subgraphのIDは日本語を使用できない。重複してもいけないのでsg+indexとしておく。
+            var schema = entry.getKey();
+            StringJoiner text = new StringJoiner("\n", "subgraph sg%d[\"%s\"]\n".formatted(schemas.indexOf(schema), schema.name()), "\nend");
             entry.getValue().stream().map(Entity::name).forEach(text::add);
             return text.toString();
         }).forEach(summaryText::add);
