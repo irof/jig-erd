@@ -1,10 +1,11 @@
 package jig.erd.domain.primitive;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 
-public class ColumnRelations implements Edges {
+public class ColumnRelations implements Edges<Column> {
     List<ColumnRelation> list;
 
     public ColumnRelations(List<ColumnRelation> list) {
@@ -16,6 +17,12 @@ public class ColumnRelations implements Edges {
         return list.stream()
                 .map(columnRelation -> columnRelation.edgeText())
                 .collect(joining(";\n", "", ";\n"));
+    }
+
+    @Override
+    public Stream<Edge<Column>> stream() {
+        return list.stream()
+                .map(columnRelation -> new Edge<>(columnRelation.from(), columnRelation.to()));
     }
 
     public EntityRelations toEntityRelations() {

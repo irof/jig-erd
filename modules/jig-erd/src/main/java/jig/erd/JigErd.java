@@ -118,10 +118,6 @@ public class JigErd {
         var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load().filter(jigProperties);
         logger.info("erdRoot: " + erdRoot.summary().text());
 
-        return Map.of(
-                ViewPoint.俯瞰, erdRoot.schemaRelationDiagram().writeToString(new DotAttributes(Map.of())),
-                ViewPoint.概要, erdRoot.entityRelationDiagram().writeToString(new DotAttributes(Map.of())),
-                ViewPoint.詳細, erdRoot.columnRelationDiagram().writeToString(new DotAttributes(Map.of()))
-        );
+        return erdRoot.mermaidTextMap();
     }
 }

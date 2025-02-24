@@ -1,14 +1,12 @@
 package jig.erd.domain;
 
 import jig.erd.JigProperties;
-import jig.erd.domain.diagram.DetailEntities;
-import jig.erd.domain.diagram.DetailEntity;
-import jig.erd.domain.diagram.DetailSchema;
-import jig.erd.domain.diagram.Digraph;
-import jig.erd.domain.diagram.SummarySchema;
+import jig.erd.domain.diagram.*;
 import jig.erd.domain.primitive.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -92,5 +90,57 @@ public class ErdRoot {
 
     public Summary summary() {
         return new Summary(schemas.size(), entities.size(), columns.size(), columnRelations.size());
+    }
+
+    public Map<ViewPoint, String> mermaidTextMap() {
+        // overview
+        StringJoiner overviewText = new StringJoiner("\n", "graph LR\n", "");
+        schemas.stream().map(Schema::name).forEach(overviewText::add);
+        columnRelations().toEntityRelations().toSchemaRelations().stream()
+                .map(edge -> edge.from().name() + " --> " + edge.to().name())
+                .forEach(overviewText::add);
+
+        // summary
+        StringJoiner summaryText = new StringJoiner("\n", "graph LR\n", "");
+        var entitySchemaMap = entities.stream().collect(groupingBy(Entity::schema));
+        entitySchemaMap.entrySet().stream().map(entry -> {
+            // schemaごとにまとめる
+            StringJoiner text = new StringJoiner("\n", "subgraph " + entry.getKey().name() + "\n", "\nend");
+            entry.getValue().stream().map(Entity::name).forEach(text::add);
+            return text.toString();
+        }).forEach(summaryText::add);
+        columnRelations().toEntityRelations().stream()
+                .map(edge -> edge.from().name() + " --> " + edge.to().name())
+                .forEach(summaryText::add);
+
+        // detail
+        StringJoiner detailText = new StringJoiner("\n", "erDiagram LR\n", "");
+        var columnEntitySchemaMap = columns.stream().collect(groupingBy(column -> column.entity().schema(), groupingBy(Column::entity, toList())));
+        columnEntitySchemaMap.entrySet().stream().map(schemaEntry -> {
+            // schemaごとにまとめる
+            // mermaidのerDiagramはsubgraphを使えない
+            // StringJoiner schemaText = new StringJoiner("\n", "subgraph " + schemaEntry.getKey().name() + "\n", "\nend");
+            StringJoiner schemaText = new StringJoiner("\n");
+            schemaEntry.getValue().entrySet().stream().map(entityEntry -> {
+                // entityの中身
+                var entity = entityEntry.getKey();
+                StringJoiner entityText = new StringJoiner("\n", "%s[\"%s\"]".formatted(entity.name(), entity.label()) + "{\n", "\n}");
+                entityEntry.getValue().stream()
+                        // 型、カラム名、制約、コメント を表示できる。型も制約も記録してないのでとりあえずカラム名だけ。
+                        .map(column -> "%s %s".formatted("x", column.name()))
+                        .forEach(entityText::add);
+                return entityText.toString();
+            }).forEach(schemaText::add);
+            return schemaText.toString();
+        }).forEach(detailText::add);
+        columnRelations().toEntityRelations().stream()
+                .map(edge -> edge.from().name() + " ||--o{ " + edge.to().name())
+                .forEach(detailText::add);
+
+        return Map.of(
+                ViewPoint.俯瞰, overviewText.toString(),
+                ViewPoint.概要, summaryText.toString(),
+                ViewPoint.詳細, detailText.toString()
+        );
     }
 }
