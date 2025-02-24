@@ -200,6 +200,9 @@ VERSION=X.X.X ./gradlew publish
 
 [oosrhのリポジトリマネージャー](https://s01.oss.sonatype.org/#stagingRepositories) からCloseとRelease
 
+### SNAPSHOT
+[SNAPSHOT](https://s01.oss.sonatype.org/content/repositories/snapshots/com/github/irof/jig-erd/)
+
 ## LICENSE
 
 [Apache License 2.0](LICENSE)
