@@ -5,32 +5,31 @@ plugins {
 }
 
 subprojects {
-    if (name == "core") {
-        plugins.apply("java")
-        plugins.apply("maven-publish")
-        plugins.apply("signing")
-        plugins.apply("org.dddjava.jig-gradle-plugin")
+    plugins.apply("java")
+    plugins.apply("maven-publish")
+    plugins.apply("signing")
+    plugins.apply("org.dddjava.jig-gradle-plugin")
 
-        configure<org.dddjava.jig.gradle.JigConfig> {
-            modelPattern = "jig\\.erd\\.domain\\..+"
-            documentTypes =
-                listOf("DomainSummary", "TermTable", "PackageRelationDiagram", "BusinessRuleRelationDiagram")
-        }
-        tasks.named("jigReports") {
-            dependsOn("classes")
-        }
-        plugins.withType<JavaPlugin> {
-            the<JavaPluginExtension>().toolchain {
-                languageVersion.set(JavaLanguageVersion.of(21))
-            }
-        }
+    configure<org.dddjava.jig.gradle.JigConfig> {
+        modelPattern = "jig\\.erd\\.domain\\..+"
+        documentTypes =
+            listOf("DomainSummary", "TermTable", "PackageRelationDiagram", "BusinessRuleRelationDiagram")
+    }
+    tasks.named("jigReports") {
+        dependsOn("classes")
+    }
 
-        tasks.withType<JavaCompile> {
-            options.encoding = "UTF-8"
-        }
-        configure<JavaPluginExtension> {
-            withJavadocJar()
-            withSourcesJar()
+    repositories {
+        mavenCentral()
+    }
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+    configure<JavaPluginExtension> {
+        withJavadocJar()
+        withSourcesJar()
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
         }
     }
 
@@ -50,7 +49,6 @@ subprojects {
                     create<MavenPublication>("mavenJava") {
                         group = "com.github.irof"
                         version = System.getenv("VERSION") ?: "0.0.0-SNAPSHOT"
-                        artifactId = extra["artifactId"] as String
 
                         from(components["java"])
                         pom {

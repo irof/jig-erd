@@ -2,12 +2,6 @@ plugins {
     id("java-library")
 }
 
-extra["artifactId"] = "jig-erd"
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testImplementation("org.postgresql:postgresql:42.7.5")
     testImplementation("com.h2database:h2:2.3.232")
