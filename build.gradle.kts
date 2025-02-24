@@ -22,6 +22,11 @@ subprojects {
         tasks.named("jigReports") {
             dependsOn("classes")
         }
+        plugins.withType<JavaPlugin> {
+            the<JavaPluginExtension>().toolchain {
+                languageVersion.set(JavaLanguageVersion.of(21))
+            }
+        }
 
         tasks.withType<JavaCompile> {
             options.encoding = "UTF-8"

@@ -2,8 +2,6 @@ plugins {
     id("java-library")
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_21
-
 extra["artifactId"] = "jig-erd"
 
 repositories {
