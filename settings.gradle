@@ -1,3 +1,4 @@
 rootProject.name = 'jig-erd'
 
 include(':modules:jig-erd')
+include(':modules:jig-erd-spring-boot-autoconfigure')

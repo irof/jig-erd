@@ -1,7 +1,8 @@
 package jig.erd;
 
-import jig.erd.domain.diagram.ViewPoint;
 import jig.erd.domain.diagram.Digraph;
+import jig.erd.domain.diagram.ViewPoint;
+import jig.erd.domain.primitive.DotAttributes;
 import jig.erd.infrastructure.DotCommandResult;
 import jig.erd.infrastructure.DotCommandRunner;
 import jig.erd.infrastructure.database.DataBaseDefinitionLoader;
@@ -111,5 +112,16 @@ public class JigErd {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public Map<ViewPoint, String> mermaidTextMap() {
+        var erdRoot = new DataBaseDefinitionLoader(jdbcConnectionProvider).load().filter(jigProperties);
+        logger.info("erdRoot: " + erdRoot.summary().text());
+
+        return Map.of(
+                ViewPoint.俯瞰, erdRoot.schemaRelationDiagram().writeToString(new DotAttributes(Map.of())),
+                ViewPoint.概要, erdRoot.entityRelationDiagram().writeToString(new DotAttributes(Map.of())),
+                ViewPoint.詳細, erdRoot.columnRelationDiagram().writeToString(new DotAttributes(Map.of()))
+        );
     }
 }
