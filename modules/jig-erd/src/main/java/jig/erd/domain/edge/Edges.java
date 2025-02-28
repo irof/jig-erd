@@ -1,5 +1,7 @@
-package jig.erd.domain.primitive;
+package jig.erd.domain.edge;
 
+
+import jig.erd.domain.primitive.DotAttributes;
 
 import java.util.stream.Stream;
 
