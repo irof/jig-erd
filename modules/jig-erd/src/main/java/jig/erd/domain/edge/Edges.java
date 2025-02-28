@@ -1,7 +1,7 @@
 package jig.erd.domain.edge;
 
 
-import jig.erd.domain.primitive.DotAttributes;
+import jig.erd.domain.graphviz.DotAttributes;
 
 import java.util.stream.Stream;
 

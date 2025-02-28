@@ -1,4 +1,6 @@
-package jig.erd.domain.primitive;
+package jig.erd.domain.graphviz;
+
+import jig.erd.domain.primitive.Entity;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package jig.erd.domain.diagram;
 
-import jig.erd.domain.primitive.DotAttributes;
+import jig.erd.domain.graphviz.DotAttributes;
 import jig.erd.domain.primitive.Entities;
 import jig.erd.domain.primitive.Schema;
 

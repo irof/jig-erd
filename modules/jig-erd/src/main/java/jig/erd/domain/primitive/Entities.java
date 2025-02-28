@@ -1,5 +1,7 @@
 package jig.erd.domain.primitive;
 
+import jig.erd.domain.graphviz.DotAttributes;
+
 import java.util.List;
 
 import static java.util.stream.Collectors.*;

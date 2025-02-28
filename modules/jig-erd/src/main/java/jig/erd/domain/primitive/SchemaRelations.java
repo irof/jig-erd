@@ -2,6 +2,7 @@ package jig.erd.domain.primitive;
 
 import jig.erd.domain.edge.Edge;
 import jig.erd.domain.edge.Edges;
+import jig.erd.domain.graphviz.DotAttributes;
 
 import java.util.List;
 import java.util.stream.Stream;

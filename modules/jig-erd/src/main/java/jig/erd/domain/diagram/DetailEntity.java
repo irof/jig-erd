@@ -1,7 +1,7 @@
 package jig.erd.domain.diagram;
 
 import jig.erd.domain.primitive.Columns;
-import jig.erd.domain.primitive.DotAttributes;
+import jig.erd.domain.graphviz.DotAttributes;
 import jig.erd.domain.primitive.Entity;
 import jig.erd.domain.primitive.Schema;
 

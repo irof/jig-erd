@@ -2,7 +2,7 @@ package jig.erd;
 
 import jig.erd.domain.diagram.DocumentFormat;
 import jig.erd.domain.diagram.ViewPoint;
-import jig.erd.domain.primitive.DotAttributes;
+import jig.erd.domain.graphviz.DotAttributes;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
