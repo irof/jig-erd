@@ -1,12 +1,13 @@
 plugins {
+    id("java-library")
 }
 
 dependencies {
     implementation(project(":modules:jig-erd"))
 
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.4.3"))
-    implementation("org.springframework.boot:spring-boot-autoconfigure")
-    implementation("org.springframework:spring-web")
+    compileOnly(enforcedPlatform("org.springframework.boot:spring-boot-dependencies:3.4.3"))
+    compileOnly("org.springframework.boot:spring-boot-autoconfigure")
+    compileOnly("org.springframework:spring-web")
 
     testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-jdbc")
