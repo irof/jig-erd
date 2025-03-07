@@ -5,11 +5,14 @@ plugins {
 dependencies {
     implementation(project(":modules:jig-erd"))
 
-    compileOnly(enforcedPlatform("org.springframework.boot:spring-boot-dependencies:3.4.3"))
+    // pomに出力しないようにcompileOnlyにしておく
+    compileOnly(platform("org.springframework.boot:spring-boot-dependencies:3.4.3"))
     compileOnly("org.springframework.boot:spring-boot-autoconfigure")
     compileOnly("org.springframework:spring-web")
 
+    // compileOnlyだと見てくれないのでこちらにもplatformがいる
+    testImplementation(platform("org.springframework.boot:spring-boot-dependencies:3.4.3"))
     testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-jdbc")
-    testImplementation("com.h2database:h2:2.3.232")
+    testImplementation("com.h2database:h2")
 }
