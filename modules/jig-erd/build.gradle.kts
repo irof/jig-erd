@@ -8,7 +8,7 @@ dependencies {
     testImplementation("com.h2database:h2:2.3.232")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.12.1")
-    testImplementation("org.mockito:mockito-core:5.15.2")
+    testImplementation("org.mockito:mockito-core:5.17.0")
 }
 
 tasks.test {
