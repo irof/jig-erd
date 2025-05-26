@@ -6,12 +6,12 @@ dependencies {
     implementation(project(":modules:jig-erd"))
 
     // pomに出力しないようにcompileOnlyにしておく
-    compileOnly(platform("org.springframework.boot:spring-boot-dependencies:3.4.5"))
+    compileOnly(platform("org.springframework.boot:spring-boot-dependencies:3.5.0"))
     compileOnly("org.springframework.boot:spring-boot-autoconfigure")
     compileOnly("org.springframework:spring-web")
 
     // compileOnlyだと見てくれないのでこちらにもplatformがいる
-    testImplementation(platform("org.springframework.boot:spring-boot-dependencies:3.4.5"))
+    testImplementation(platform("org.springframework.boot:spring-boot-dependencies:3.5.0"))
     testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-jdbc")
     testImplementation("com.h2database:h2")
