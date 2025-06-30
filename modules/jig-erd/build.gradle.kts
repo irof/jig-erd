@@ -7,7 +7,7 @@ dependencies {
     testImplementation("org.postgresql:postgresql:42.7.5")
     testImplementation("com.h2database:h2:2.3.232")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.12.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.13.2")
     testImplementation("org.mockito:mockito-core:5.17.0")
 }
 
