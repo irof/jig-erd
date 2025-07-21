@@ -1,6 +1,6 @@
 plugins {
     id("java-library")
-    id("org.dddjava.jig-gradle-plugin") version "2025.3.1"
+    id("org.dddjava.jig-gradle-plugin") version "2025.7.1"
 }
 
 dependencies {
